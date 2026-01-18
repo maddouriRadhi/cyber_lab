@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - CyberLab{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+{% endblock %}
+
+{% block body %}
+  <div class="admin">
+    <aside class="admin__sidebar">
+      <div class="admin__brand">
+        <span class="dot"></span>
+        <div>
+          <div class="name">CyberLab</div>
+          <div class="sub">Admin Panel</div>
+        </div>
+      </div>
+
+      <nav class="admin__nav">
+        {# ✅ FIX: use app_admin_dashboard (not "admin") #}
+        <a class="admin__link {{ app.request.pathinfo == '/admin' ? 'is-active' : '' }}"
+           href="{{ path('app_admin_dashboard') }}">
+          Dashboard <span>→</span>
+        </a>
+
+        <a class="admin__link {{ app.request.pathinfo starts with '/admin/users' ? 'is-active' : '' }}"
+           href="{{ path('app_admin_users') }}">
+          Users <span>→</span>
+        </a>
+
+        <a class="admin__link {{ app.request.pathinfo starts with '/admin/labs' ? 'is-active' : '' }}"
+           href="{{ path('app_admin_labs') }}">
+          Labs <span>→</span>
+        </a>
+
+        {# (optionnel si tu as teachers) #}
+        {% if app.request.pathinfo starts with '/admin/teachers' %}
+          <a class="admin__link is-active" href="{{ path('app_admin_teachers') }}">
+            Teacher Applications <span>→</span>
+          </a>
+        {% else %}
+          {% if app.request.pathinfo starts with '/admin' %}
+            {# show link anyway #}
+            <a class="admin__link {{ app.request.pathinfo starts with '/admin/teachers' ? 'is-active' : '' }}"
+               href="{{ path('app_admin_teachers') }}">
+              Teacher Applications <span>→</span>
+            </a>
+          {% endif %}
+        {% endif %}
+
+        <div class="admin__sep"></div>
+
+        <a class="admin__link" href="{{ path('app_home') }}">← Back to site</a>
+        <a class="admin__link danger" href="{{ path('app_logout') }}">Logout</a>
+      </nav>
+    </aside>
+
+    <main class="admin__main">
+      {% for label, messages in app.flashes %}
+        {% for message in messages %}
+          <div class="badge" style="margin-bottom: 12px;">{{ message }}</div>
+        {% endfor %}
+      {% endfor %}
+
+      {% block admin_main %}{% endblock %}
+    </main>
+  </div>
+{% endblock %}

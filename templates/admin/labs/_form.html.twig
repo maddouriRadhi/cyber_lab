@@ -1,0 +1,46 @@
+<div class="cardx cardx--info" style="padding:18px;">
+  {{ form_start(form, { attr: { class: 'form' } }) }}
+
+  <div class="grid2">
+    <div>
+      {{ form_label(form.title) }}
+      {{ form_widget(form.title) }}
+      {{ form_errors(form.title) }}
+    </div>
+
+    <div>
+      {{ form_label(form.difficulty) }}
+      {{ form_widget(form.difficulty) }}
+      {{ form_errors(form.difficulty) }}
+    </div>
+
+    <div>
+      {{ form_label(form.points) }}
+      {{ form_widget(form.points) }}
+      {{ form_errors(form.points) }}
+    </div>
+
+    <div>
+      {{ form_label(form.flag) }}
+      {{ form_widget(form.flag) }}
+      {{ form_errors(form.flag) }}
+    </div>
+  </div>
+
+  <div style="margin-top:12px;">
+    {{ form_label(form.description) }}
+    {{ form_widget(form.description) }}
+    {{ form_errors(form.description) }}
+  </div>
+
+  <div style="margin-top:12px;">
+    {{ form_widget(form.published) }}
+    {{ form_label(form.published) }}
+  </div>
+
+  <div style="margin-top:16px; display:flex; gap:10px;">
+    <button class="btn btn--primary" type="submit">{{ button|default('Save') }}</button>
+  </div>
+
+  {{ form_end(form) }}
+</div>

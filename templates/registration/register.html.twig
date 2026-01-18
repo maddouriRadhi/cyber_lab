@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register - CyberLab{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="reg-wrap">
+  <div class="reg-card">
+    <div class="reg-head">
+      <h1 class="reg-title">Create your account</h1>
+      <p class="reg-sub">Join CyberLab and start training with real-world labs.</p>
+    </div>
+
+    {{ form_start(registrationForm, { attr: { class: 'reg-form' } }) }}
+
+      <div class="reg-grid">
+        <div class="reg-field">
+          {{ form_label(registrationForm.fullName, null, { label_attr: { class: 'reg-label' } }) }}
+          {{ form_widget(registrationForm.fullName, { attr: { class: 'reg-input', placeholder: 'Full name' } }) }}
+          {{ form_errors(registrationForm.fullName) }}
+        </div>
+
+        <div class="reg-field">
+          {{ form_label(registrationForm.email, null, { label_attr: { class: 'reg-label' } }) }}
+          {{ form_widget(registrationForm.email, { attr: { class: 'reg-input', placeholder: 'Email address' } }) }}
+          {{ form_errors(registrationForm.email) }}
+        </div>
+      </div>
+
+      <div class="reg-field">
+        {{ form_label(registrationForm.plainPassword, null, { label_attr: { class: 'reg-label' } }) }}
+        {{ form_widget(registrationForm.plainPassword, { attr: { class: 'reg-input', placeholder: 'Password' } }) }}
+        {{ form_errors(registrationForm.plainPassword) }}
+        <div class="reg-hint">Use at least 8 characters (letters + numbers recommended).</div>
+      </div>
+
+      <div class="reg-check">
+        {{ form_widget(registrationForm.agreeTerms, { attr: { class: 'reg-checkbox' } }) }}
+        {{ form_label(registrationForm.agreeTerms, null, { label_attr: { class: 'reg-checklabel' } }) }}
+        {{ form_errors(registrationForm.agreeTerms) }}
+      </div>
+
+      <button type="submit" class="reg-btn reg-btn--primary">Create account</button>
+
+      <div class="reg-footer">
+        <span>Already have an account?</span>
+        <a class="reg-link" href="{{ path('app_login') }}">Sign in</a>
+      </div>
+
+    {{ form_end(registrationForm) }}
+  </div>
+
+  <div class="reg-side">
+    <div class="reg-side__card">
+      <h2 class="reg-side__title">What you get</h2>
+      <ul class="reg-list">
+        <li><span class="dot"></span> Curated labs (Linux, Network, Web)</li>
+        <li><span class="dot"></span> Flag submissions + instant feedback</li>
+        <li><span class="dot"></span> Progress tracking & leaderboard</li>
+      </ul>
+
+      <div class="reg-badges">
+        <span class="badge">Beginner friendly</span>
+        <span class="badge">Hands-on</span>
+        <span class="badge">Realistic scenarios</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

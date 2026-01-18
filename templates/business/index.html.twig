@@ -1,0 +1,178 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Business — Teach on CyberLab{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/business.css') }}">
+{% endblock %}
+
+{% block body %}
+<section class="biz-hero">
+  <div class="biz-hero__grid">
+    <div class="biz-hero__card">
+      <div class="biz-kicker">CyberLab for Instructors</div>
+      <h1 class="biz-title">
+        Teach cybersecurity.<br>
+        Build labs that feel <span class="biz-accent">real</span>.
+      </h1>
+      <p class="biz-sub">
+        Publish guided labs, track student progress, and help learners practice with real-world scenarios.
+        Apply now to become an instructor on CyberLab.
+      </p>
+
+      <div class="biz-cta">
+        <a class="biz-btn biz-btn--primary" href="#apply">Apply now</a>
+        <a class="biz-btn biz-btn--ghost" href="#how">How it works</a>
+      </div>
+
+      <div class="biz-bullets">
+        <div class="biz-bullet"><span>✅</span> Publish labs & challenges</div>
+        <div class="biz-bullet"><span>✅</span> Student progress analytics</div>
+        <div class="biz-bullet"><span>✅</span> Community & reviews</div>
+      </div>
+    </div>
+
+    <div class="biz-hero__side">
+      <div class="biz-metric">
+        <div class="biz-metric__num">+50</div>
+        <div class="biz-metric__label">Labs planned</div>
+      </div>
+      <div class="biz-metric">
+        <div class="biz-metric__num">24/7</div>
+        <div class="biz-metric__label">Practice access</div>
+      </div>
+      <div class="biz-metric">
+        <div class="biz-metric__num">1</div>
+        <div class="biz-metric__label">Unified platform</div>
+      </div>
+
+      <div class="biz-quote">
+        <div class="biz-quote__top">
+          <div class="biz-avatar">T</div>
+          <div>
+            <div class="biz-quote__name">Teacher Preview</div>
+            <div class="biz-quote__role">Instructor</div>
+          </div>
+          <div class="biz-stars">★★★★★</div>
+        </div>
+        <p>
+          “Publishing labs is fast and clean. Students get instant feedback while I track their progress.”
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="biz-section" id="how">
+  <div class="biz-head">
+    <h2>How teaching on CyberLab works</h2>
+    <p>A simple flow for instructors. You focus on knowledge — we handle the platform experience.</p>
+  </div>
+
+  <div class="biz-steps">
+    <div class="biz-step">
+      <div class="biz-step__num">1</div>
+      <h3>Apply</h3>
+      <p>Tell us your background, topics, and the labs you want to publish.</p>
+    </div>
+    <div class="biz-step">
+      <div class="biz-step__num">2</div>
+      <h3>Review</h3>
+      <p>We review your application and validate your instructor profile.</p>
+    </div>
+    <div class="biz-step">
+      <div class="biz-step__num">3</div>
+      <h3>Build & publish</h3>
+      <p>Create labs with difficulty, points, and flags. Publish when ready.</p>
+    </div>
+    <div class="biz-step">
+      <div class="biz-step__num">4</div>
+      <h3>Support learners</h3>
+      <p>Help students, get reviews, and improve labs using feedback.</p>
+    </div>
+  </div>
+</section>
+
+<section class="biz-section" id="apply">
+  <div class="biz-head">
+    <h2>Apply to teach</h2>
+    <p>This form is now connected to the database. Submissions appear in the Admin panel.</p>
+  </div>
+
+  {% for label, messages in app.flashes %}
+    {% for msg in messages %}
+      <div class="biz-flash biz-flash--{{ label }}">{{ msg }}</div>
+    {% endfor %}
+  {% endfor %}
+
+  <div class="biz-apply">
+    <div class="biz-form">
+      {{ form_start(form, { attr: { class: '' } }) }}
+
+      <div class="biz-grid">
+        <div class="biz-field">
+          {{ form_label(form.fullName) }}
+          {{ form_widget(form.fullName, { attr: { placeholder: 'e.g. John Doe' } }) }}
+          {{ form_errors(form.fullName) }}
+        </div>
+        <div class="biz-field">
+          {{ form_label(form.email) }}
+          {{ form_widget(form.email, { attr: { placeholder: 'e.g. teacher@example.com' } }) }}
+          {{ form_errors(form.email) }}
+        </div>
+      </div>
+
+      <div class="biz-grid">
+        <div class="biz-field">
+          {{ form_label(form.primaryTrack) }}
+          {{ form_widget(form.primaryTrack) }}
+          {{ form_errors(form.primaryTrack) }}
+        </div>
+        <div class="biz-field">
+          {{ form_label(form.experienceLevel) }}
+          {{ form_widget(form.experienceLevel) }}
+          {{ form_errors(form.experienceLevel) }}
+        </div>
+      </div>
+
+      <div class="biz-field">
+        {{ form_label(form.bio) }}
+        {{ form_widget(form.bio, { attr: { placeholder: 'Tell us what you teach, tools you use, and your teaching approach...' } }) }}
+        {{ form_errors(form.bio) }}
+      </div>
+
+      <div class="biz-field">
+        {{ form_label(form.links) }}
+        {{ form_widget(form.links, { attr: { placeholder: 'LinkedIn / GitHub / Portfolio (optional)' } }) }}
+        {{ form_errors(form.links) }}
+      </div>
+
+      <button class="biz-btn biz-btn--primary biz-btn--wide" type="submit">
+        Submit application
+      </button>
+
+      <div class="biz-note">
+        By submitting, you agree that CyberLab may contact you about your instructor application.
+      </div>
+
+      {{ form_end(form) }}
+    </div>
+
+    <aside class="biz-panel">
+      <h3>What happens next?</h3>
+      <ul>
+        <li><span>⏱️</span> Review within 24–72h</li>
+        <li><span>🧠</span> Quick chat about your topics</li>
+        <li><span>🧪</span> First lab published with our help</li>
+      </ul>
+
+      <div class="biz-mini">
+        <div class="biz-mini__title">Tip</div>
+        <div class="biz-mini__text">
+          Add 1–2 lab ideas in your bio (difficulty + expected flag format).
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+{% endblock %}

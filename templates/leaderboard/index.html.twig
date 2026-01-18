@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Leaderboard | CyberLab{% endblock %}
+
+{% block body %}
+<div class="card">
+  <h1>Leaderboard</h1>
+  <p class="muted">Ranking by total points earned from solved labs.</p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>User</th>
+        <th>Solved</th>
+        <th>Total Points</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for r in rows %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>
+          <strong>{{ r.fullName ?: r.email }}</strong>
+          <div class="muted" style="font-size: 13px">{{ r.email }}</div>
+        </td>
+        <td>{{ r.solvedCount }}</td>
+        <td><strong>{{ r.totalPoints ?: 0 }}</strong></td>
+      </tr>
+    {% else %}
+      <tr><td colspan="4">No solves yet.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <div style="margin-top:14px">
+    <a class="btn btn--ghost" href="{{ path('app_labs') }}">Go to Labs</a>
+  </div>
+</div>
+{% endblock %}

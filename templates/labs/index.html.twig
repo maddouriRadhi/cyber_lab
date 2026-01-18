@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Practice Labs — CyberLab{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/labs.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="labs-wrap">
+
+  <section class="labs-hero">
+    <div class="labs-hero__left">
+      <div class="labs-kicker">Practice</div>
+      <h1 class="labs-title">Labs</h1>
+      <p class="labs-sub">Pick a lab, solve it, and track your progress.</p>
+
+      <div class="labs-actions">
+        <a class="labs-btn labs-btn--primary" href="{{ path('app_dashboard') }}">← Back to dashboard</a>
+      </div>
+    </div>
+
+    <div class="labs-hero__right">
+      <div class="labs-stats">
+        <div class="labs-stat">
+          <div class="labs-stat__num">{{ labs|length }}</div>
+          <div class="labs-stat__label">Available labs</div>
+        </div>
+        <div class="labs-stat">
+          <div class="labs-stat__num">{{ solvedIds|default([])|length }}</div>
+          <div class="labs-stat__label">Solved</div>
+        </div>
+      </div>
+
+      <div class="labs-tools">
+        <input id="labSearch" class="labs-search" type="search" placeholder="Search (title / difficulty / description / teacher)…">
+        <div class="labs-chips" id="labChips">
+          <button class="chip is-active" data-filter="all" type="button">All</button>
+          <button class="chip" data-filter="easy" type="button">Easy</button>
+          <button class="chip" data-filter="medium" type="button">Medium</button>
+          <button class="chip" data-filter="hard" type="button">Hard</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="labs-grid" id="labsGrid">
+    {% for lab in labs %}
+      {% set diff = (lab.difficulty ?? 'Easy')|lower %}
+      {% set isSolved = (lab.id in (solvedIds|default([]))) %}
+      {% set teacherName = lab.teacher ? (lab.teacher.fullName ?: lab.teacher.email) : '—' %}
+      {% set scheduleText = lab.scheduledAt ? lab.scheduledAt|date('Y-m-d H:i') : 'Self-paced' %}
+
+      <article
+        class="lab-card"
+        data-title="{{ (lab.title ?? '')|lower }}"
+        data-desc="{{ (lab.description ?? '')|lower }}"
+        data-difficulty="{{ diff }}"
+        data-teacher="{{ teacherName|lower }}"
+      >
+        <div class="lab-top">
+          <span class="pill pill--{{ diff }}">{{ lab.difficulty }}</span>
+
+          <div class="lab-right">
+            {% if isSolved %}
+              <span class="pill pill--solved">Solved ✓</span>
+            {% endif %}
+            <span class="points">⭐ {{ lab.points }} pts</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">{{ lab.title }}</h3>
+
+        <p class="lab-desc">
+          {{ lab.description|slice(0, 150) }}{% if lab.description|length > 150 %}…{% endif %}
+        </p>
+
+        <div class="lab-bottom">
+          <div class="meta">
+            <span class="meta-item">#{{ lab.id }}</span>
+            <span class="meta-dot">•</span>
+            <span class="meta-item">{{ teacherName }}</span>
+            <span class="meta-dot">•</span>
+            <span class="meta-item">{{ scheduleText }}</span>
+          </div>
+
+          <a class="open-btn" href="{{ path('app_lab_show', {id: lab.id}) }}">Open →</a>
+        </div>
+      </article>
+    {% else %}
+      <div class="labs-empty">
+        <div class="labs-empty__title">No labs yet</div>
+        <div class="labs-empty__text">Create labs from Admin/Teacher and publish them.</div>
+      </div>
+    {% endfor %}
+  </section>
+
+</div>
+
+<script>
+(() => {
+  const search = document.getElementById('labSearch');
+  const chipsWrap = document.getElementById('labChips');
+  const cards = Array.from(document.querySelectorAll('.lab-card'));
+
+  let activeFilter = 'all';
+
+  function apply() {
+    const q = (search.value || '').trim().toLowerCase();
+
+    cards.forEach(card => {
+      const title = card.dataset.title || '';
+      const desc = card.dataset.desc || '';
+      const diff = card.dataset.difficulty || '';
+      const teacher = card.dataset.teacher || '';
+
+      const matchesSearch =
+        !q || title.includes(q) || desc.includes(q) || diff.includes(q) || teacher.includes(q);
+
+      const matchesFilter = activeFilter === 'all' || diff === activeFilter;
+
+      card.style.display = (matchesSearch && matchesFilter) ? '' : 'none';
+    });
+  }
+
+  chipsWrap?.addEventListener('click', (e) => {
+    const btn = e.target.closest('.chip');
+    if (!btn) return;
+
+    activeFilter = btn.dataset.filter || 'all';
+    chipsWrap.querySelectorAll('.chip').forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+
+    apply();
+  });
+
+  search?.addEventListener('input', apply);
+})();
+</script>
+{% endblock %}

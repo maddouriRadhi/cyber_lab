@@ -1,0 +1,73 @@
+{% extends 'admin/_layout.html.twig' %}
+
+{% block title %}Admin • Teacher Application{% endblock %}
+
+{% block admin_content %}
+  <div class="admin__top">
+    <div>
+      <h1 class="admin__title">Application #{{ application.id }}</h1>
+      <p class="admin__subtitle">Review details before approving/rejecting.</p>
+    </div>
+    <div class="pill">Status: {{ application.status }}</div>
+  </div>
+
+  <div class="cardx cardx--info" style="flex-direction:column; align-items:stretch;">
+    <div class="grid2">
+      <div>
+        <div class="pill" style="display:inline-block; margin-bottom:10px;">Full name</div>
+        <div style="font-size:18px; font-weight:800;">{{ application.fullName }}</div>
+      </div>
+
+      <div>
+        <div class="pill" style="display:inline-block; margin-bottom:10px;">Email</div>
+        <div style="font-size:18px; font-weight:800;">{{ application.email }}</div>
+      </div>
+
+      <div>
+        <div class="pill" style="display:inline-block; margin-bottom:10px;">Track</div>
+        <div>{{ application.primaryTrack }}</div>
+      </div>
+
+      <div>
+        <div class="pill" style="display:inline-block; margin-bottom:10px;">Experience</div>
+        <div>{{ application.experienceLevel }}</div>
+      </div>
+
+      <div style="grid-column:1 / -1;">
+        <div class="pill" style="display:inline-block; margin-bottom:10px;">Bio</div>
+        <div style="opacity:.9; line-height:1.6;">{{ application.bio }}</div>
+      </div>
+
+      {% if application.links %}
+        <div style="grid-column:1 / -1;">
+          <div class="pill" style="display:inline-block; margin-bottom:10px;">Links</div>
+          <div style="opacity:.9;">{{ application.links }}</div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:16px; flex-wrap:wrap;">
+      <a class="btn btn--ghost" href="{{ path('app_admin_teachers') }}">← Back</a>
+
+      {% if application.status != 'APPROVED' %}
+        <form method="post" action="{{ path('app_admin_teachers_approve', {id: application.id}) }}">
+          <input type="hidden" name="_token" value="{{ csrf_token('teacher_app_approve_' ~ application.id) }}">
+          <button class="btn btn--primary" type="submit">Approve</button>
+        </form>
+      {% endif %}
+
+      {% if application.status != 'REJECTED' %}
+        <form method="post" action="{{ path('app_admin_teachers_reject', {id: application.id}) }}">
+          <input type="hidden" name="_token" value="{{ csrf_token('teacher_app_reject_' ~ application.id) }}">
+          <button class="btn btn--ghost" type="submit">Reject</button>
+        </form>
+      {% endif %}
+
+      <form method="post" action="{{ path('app_admin_teachers_delete', {id: application.id}) }}"
+            onsubmit="return confirm('Delete this application?');">
+        <input type="hidden" name="_token" value="{{ csrf_token('teacher_app_delete_' ~ application.id) }}">
+        <button class="btn btn--danger" type="submit">Delete</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

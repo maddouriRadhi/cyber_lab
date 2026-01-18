@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CTF Starter Pack — Learn{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/learn.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="learn">
+  <section class="learn-hero">
+    <div>
+      <div class="learn-kicker">Learn • CTF</div>
+      <h1 class="learn-title">CTF Starter Pack 🏁</h1>
+      <p class="learn-sub">
+        CTFs are practice challenges. The goal is to find a flag by solving small problems.
+      </p>
+      <div class="learn-actions">
+        <a class="learn-btn learn-btn--primary" href="{{ path('app_learn_ctf') }}">Refresh</a>
+        <a class="learn-btn" href="{{ path('app_learn') }}">All modules</a>
+        <a class="learn-btn" href="{{ path('app_dashboard') }}">Dashboard</a>
+      </div>
+    </div>
+    <div class="learn-pill">Level: All levels</div>
+  </section>
+
+  <section class="learn-grid">
+    <div class="learn-card">
+      <h3>1) Common categories</h3>
+      <ul class="learn-list">
+        <li>Web (XSS, SQLi, auth bugs)</li>
+        <li>Crypto (encoding, ciphers)</li>
+        <li>Pwn (binary exploitation)</li>
+        <li>Forensics (pcap, files)</li>
+      </ul>
+    </div>
+
+    <div class="learn-card">
+      <h3>2) How to start</h3>
+      <ul class="learn-list">
+        <li>Read the statement twice</li>
+        <li>Look for hints in files/URLs</li>
+        <li>Search keywords (error messages)</li>
+        <li>Take notes of what you tried</li>
+      </ul>
+    </div>
+
+    <div class="learn-card">
+      <h3>3) Basic tools</h3>
+      <ul class="learn-list">
+        <li>Web: DevTools, Burp</li>
+        <li>Files: file, strings, binwalk</li>
+        <li>Network: Wireshark</li>
+        <li>Linux: grep, find, xxd</li>
+      </ul>
+    </div>
+
+    <div class="learn-card">
+      <h3>4) “CTF mindset”</h3>
+      <ul class="learn-list">
+        <li>Small steps → verify each step</li>
+        <li>If stuck, change angle</li>
+        <li>Document so you can explain</li>
+      </ul>
+    </div>
+
+    <div class="learn-card" style="grid-column: 1 / -1;">
+      <h3>Quick commands (useful)</h3>
+      <div class="learn-code">
+file mystery
+strings -n 6 mystery | head
+grep -R "flag" -n .
+find . -type f -maxdepth 2
+xxd -l 128 mystery
+      </div>
+      <div class="learn-badges">
+        <span class="learn-badge">Tip: check file type first</span>
+        <span class="learn-badge">Don’t brute-force randomly</span>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

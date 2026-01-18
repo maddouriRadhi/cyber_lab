@@ -1,0 +1,192 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CyberLab — Home{% endblock %}
+
+{% block body %}
+<section class="hero">
+    <div class="hero__grid">
+        <div class="hero__content glass">
+            <div class="kicker">Hands-on Cybersecurity Training</div>
+            <h1 class="hero__title">
+                Learn cybersecurity with <span class="accent">CyberLab</span>
+            </h1>
+            <p class="hero__text">
+                Hands-on cyber security training through real-world scenarios.
+                Practice with guided labs, track progress, and get help from instructors.
+            </p>
+
+            <div class="hero__actions">
+                <a class="btn btn--primary" href="{{ path('app_labs') }}">Browse Labs</a>
+                {% if not app.user %}
+                    <a class="btn btn--ghost" href="{{ path('app_register') }}">Get Started</a>
+                {% else %}
+                    <a class="btn btn--ghost" href="{{ path('app_dashboard') }}">Go to Dashboard</a>
+                {% endif %}
+                <a class="btn btn--soft" href="{{ path('app_learn') }}">Start Learning</a>
+            </div>
+
+            <div class="hero__stats">
+                <div class="stat">
+                    <div class="stat__num">50+</div>
+                    <div class="stat__label">Labs (soon)</div>
+                </div>
+                <div class="stat">
+                    <div class="stat__num">3</div>
+                    <div class="stat__label">Tracks</div>
+                </div>
+                <div class="stat">
+                    <div class="stat__num">24/7</div>
+                    <div class="stat__label">Practice</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero__media glass">
+            <img class="hero__img" src="{{ asset('images/hero-cyber.png') }}" alt="CyberLab hero">
+            <div class="hero__mediaOverlay">
+                <div class="tag">Real-world labs</div>
+                <div class="tag">Beginner → Advanced</div>
+                <div class="tag">Flags & scoring</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section__head">
+        <h2>Built for practice, not just theory</h2>
+        <p>
+            CyberLab gives you realistic labs, a clean learning path, and feedback loops.
+            Your goal is simple: learn, solve, improve.
+        </p>
+    </div>
+
+    <div class="features">
+        <div class="card glass">
+            <div class="card__icon">🧪</div>
+            <h3>Realistic Labs</h3>
+            <p>Hands-on tasks inspired by real security scenarios: Linux, networking, recon and web security.</p>
+        </div>
+
+        <div class="card glass">
+            <div class="card__icon">🏁</div>
+            <h3>Flags & Validation</h3>
+            <p>Submit flags, get instant feedback, and collect points to track progress over time.</p>
+        </div>
+
+        <div class="card glass">
+            <div class="card__icon">👨‍🏫</div>
+            <h3>Teacher Support</h3>
+            <p>Teachers can publish labs and guide learners (Business feature comes next).</p>
+        </div>
+
+        <div class="card glass">
+            <div class="card__icon">📈</div>
+            <h3>Progress Tracking</h3>
+            <p>Dashboard + history of solves, streaks, and stats (next feature).</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section__head">
+        <h2>Start with popular labs</h2>
+        <p>Quick entry points for beginners. You can replace titles later with your real data.</p>
+    </div>
+
+    <div class="labGrid">
+        <a class="labCard glass" href="{{ path('app_labs') }}">
+            <img src="{{ asset('images/lab-linux.png') }}" alt="Linux lab">
+            <div class="labCard__body">
+                <div class="pill pill--green">Linux</div>
+                <h3>Intro to Linux</h3>
+                <p>Files, permissions, users, processes, and essential commands.</p>
+            </div>
+        </a>
+
+        <a class="labCard glass" href="{{ path('app_labs') }}">
+            <img src="{{ asset('images/lab-network.png') }}" alt="Network lab">
+            <div class="labCard__body">
+                <div class="pill pill--blue">Networking</div>
+                <h3>Networking Fundamentals</h3>
+                <p>Subnetting, DNS, ports, HTTP, troubleshooting basics.</p>
+            </div>
+        </a>
+
+        <a class="labCard glass" href="{{ path('app_labs') }}">
+            <img src="{{ asset('images/lab-web.png') }}" alt="Web lab">
+            <div class="labCard__body">
+                <div class="pill pill--pink">Web</div>
+                <h3>Web Recon & OSINT</h3>
+                <p>Directories, subdomains, metadata, and recon workflow.</p>
+            </div>
+        </a>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section__head">
+        <h2>Community</h2>
+        <p>What learners say about CyberLab (demo reviews for now).</p>
+    </div>
+
+    <div class="reviews">
+        <div class="review glass">
+            <div class="review__top">
+                <div class="avatar">A</div>
+                <div>
+                    <div class="review__name">Ayoub</div>
+                    <div class="review__role">Student</div>
+                </div>
+                <div class="review__stars">★★★★★</div>
+            </div>
+            <p>
+                “The labs feel real and the UI is clean. Submitting flags and seeing progress is motivating.”
+            </p>
+        </div>
+
+        <div class="review glass">
+            <div class="review__top">
+                <div class="avatar">N</div>
+                <div>
+                    <div class="review__name">Nader</div>
+                    <div class="review__role">Beginner</div>
+                </div>
+                <div class="review__stars">★★★★★</div>
+            </div>
+            <p>
+                “Best way to learn: practice + feedback. It’s like TryHackMe style but tailored for our project.”
+            </p>
+        </div>
+
+        <div class="review glass">
+            <div class="review__top">
+                <div class="avatar">T</div>
+                <div>
+                    <div class="review__name">Teacher</div>
+                    <div class="review__role">Instructor</div>
+                </div>
+                <div class="review__stars">★★★★☆</div>
+            </div>
+            <p>
+                “I can publish labs and guide learners. The Business/teacher portal will be huge once added.”
+            </p>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__brand">
+            <span class="brand__dot"></span> CyberLab
+        </div>
+        <div class="footer__links">
+            <a href="{{ path('app_learn') }}">Learn</a>
+            <a href="{{ path('app_labs') }}">Practice</a>
+            <a href="{{ path('app_pricing') }}">Pricing</a>
+            <a href="{{ path('app_business') }}">Business</a>
+        </div>
+        <div class="footer__copy">© {{ "now"|date("Y") }} CyberLab — Built for learning.</div>
+    </div>
+</footer>
+{% endblock %}

@@ -1,0 +1,311 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pricing — CyberLab{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/pricing.css') }}">
+  <style>
+    /* small helper for student shop header */
+    .shop-head{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 18px;
+      display:flex;
+      align-items:flex-end;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .shop-head .left p{ margin: 8px 0 0; opacity:.85; }
+    .shop-actions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .mini-pill{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 10px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      opacity:.9;
+      white-space:nowrap;
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+
+{# ---------------------------
+   CASE 1: NOT LOGGED IN
+   => keep your original pricing UI
+---------------------------- #}
+{% if not app.user %}
+
+<section class="price-hero">
+  <div class="price-hero__card">
+    <div class="price-kicker">Pricing</div>
+    <h1 class="price-title">Train smarter. Upgrade when you’re ready.</h1>
+    <p class="price-sub">
+      Start free, then unlock full labs, progress tracking, and instructor content.
+      Choose monthly or save more with annual.
+    </p>
+
+    <div class="price-toggle">
+      <span class="price-toggle__label price-toggle__label--active">Monthly</span>
+      <span class="price-toggle__pill" aria-hidden="true"></span>
+      <span class="price-toggle__label">Annual <span class="save">Save 20%</span></span>
+      <div class="price-note">* Demo UI (we can wire real billing later)</div>
+    </div>
+  </div>
+</section>
+
+<section class="price-grid">
+  <article class="plan">
+    <div class="plan__top">
+      <div class="plan__name">Free</div>
+      <div class="plan__price">
+        <span class="amount">$0</span>
+        <span class="per">/ month</span>
+      </div>
+      <p class="plan__desc">Perfect to discover the platform and start basic labs.</p>
+    </div>
+
+    <ul class="plan__features">
+      <li>✅ Access to beginner labs</li>
+      <li>✅ Submit flags & get feedback</li>
+      <li>✅ Community leaderboard (limited)</li>
+      <li>❌ No advanced labs</li>
+      <li>❌ No instructor tracks</li>
+    </ul>
+
+    <a class="plan__btn plan__btn--ghost" href="{{ path('app_register') }}">Start free</a>
+  </article>
+
+  <article class="plan plan--popular">
+    <div class="plan__badge">Most Popular</div>
+
+    <div class="plan__top">
+      <div class="plan__name">Pro</div>
+      <div class="plan__price">
+        <span class="amount">$12</span>
+        <span class="per">/ month</span>
+      </div>
+      <p class="plan__desc">Everything you need to train seriously and track progress.</p>
+    </div>
+
+    <ul class="plan__features">
+      <li>✅ All labs (Easy → Hard)</li>
+      <li>✅ Progress tracking + stats</li>
+      <li>✅ Full leaderboard access</li>
+      <li>✅ New labs every month</li>
+      <li>✅ Priority support</li>
+    </ul>
+
+    <a class="plan__btn plan__btn--primary" href="{{ path('app_register') }}">Get Pro</a>
+    <div class="plan__foot">Annual option: $115 / year</div>
+  </article>
+
+  <article class="plan">
+    <div class="plan__top">
+      <div class="plan__name">Teams</div>
+      <div class="plan__price">
+        <span class="amount">$49</span>
+        <span class="per">/ month</span>
+      </div>
+      <p class="plan__desc">For schools, clubs, or companies who want group training.</p>
+    </div>
+
+    <ul class="plan__features">
+      <li>✅ Team dashboard</li>
+      <li>✅ Assign labs to members</li>
+      <li>✅ Progress analytics</li>
+      <li>✅ Private labs (optional)</li>
+      <li>✅ Dedicated support</li>
+    </ul>
+
+    <a class="plan__btn plan__btn--ghost" href="{{ path('app_business') }}">Contact / Apply</a>
+  </article>
+</section>
+
+<section class="price-strip">
+  <div class="strip">
+    <div>
+      <h2>Student discount?</h2>
+      <p>We can add a student plan later. For now: Free + Pro are enough for the demo.</p>
+    </div>
+    <a class="strip__btn" href="{{ path('app_register') }}">Join CyberLab</a>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="faq__head">
+    <h2>FAQ</h2>
+    <p>Quick answers. We can also add a dedicated support page later.</p>
+  </div>
+
+  <div class="faq__grid">
+    <div class="faq__item">
+      <h3>Do I need a credit card for Free?</h3>
+      <p>No. You can register and start using the Free plan instantly.</p>
+    </div>
+    <div class="faq__item">
+      <h3>Can I upgrade later?</h3>
+      <p>Yes. In a real version we connect Stripe/PayPal. For now it’s UI only.</p>
+    </div>
+    <div class="faq__item">
+      <h3>What do teachers get?</h3>
+      <p>Teachers can apply in the Business page and publish labs once approved.</p>
+    </div>
+    <div class="faq__item">
+      <h3>Is this like TryHackMe / HackTheBox?</h3>
+      <p>Similar concept for learning, but your project is customized as CyberLab.</p>
+    </div>
+  </div>
+</section>
+
+{# ---------------------------
+   CASE 2: LOGGED IN + ADMIN/TEACHER
+   => show same public pricing (no cart)
+---------------------------- #}
+{% elseif is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER') %}
+
+<section class="price-hero">
+  <div class="price-hero__card">
+    <div class="price-kicker">Pricing</div>
+    <h1 class="price-title">Pricing page (public view)</h1>
+    <p class="price-sub">Admins/Teachers see the normal pricing display. Cart is for students only.</p>
+  </div>
+</section>
+
+<section class="price-grid">
+  <article class="plan">
+    <div class="plan__top">
+      <div class="plan__name">Free</div>
+      <div class="plan__price">
+        <span class="amount">$0</span>
+        <span class="per">/ month</span>
+      </div>
+      <p class="plan__desc">Perfect to discover the platform and start basic labs.</p>
+    </div>
+
+    <ul class="plan__features">
+      <li>✅ Access to beginner labs</li>
+      <li>✅ Submit flags & get feedback</li>
+      <li>✅ Community leaderboard (limited)</li>
+      <li>❌ No advanced labs</li>
+      <li>❌ No instructor tracks</li>
+    </ul>
+
+    <a class="plan__btn plan__btn--ghost" href="{{ path('app_home') }}">Back to site</a>
+  </article>
+
+  <article class="plan plan--popular">
+    <div class="plan__badge">Most Popular</div>
+    <div class="plan__top">
+      <div class="plan__name">Pro</div>
+      <div class="plan__price">
+        <span class="amount">$12</span>
+        <span class="per">/ month</span>
+      </div>
+      <p class="plan__desc">Everything you need to train seriously and track progress.</p>
+    </div>
+
+    <ul class="plan__features">
+      <li>✅ All labs (Easy → Hard)</li>
+      <li>✅ Progress tracking + stats</li>
+      <li>✅ Full leaderboard access</li>
+      <li>✅ New labs every month</li>
+      <li>✅ Priority support</li>
+    </ul>
+
+    <a class="plan__btn plan__btn--primary" href="{{ path('app_home') }}">OK</a>
+    <div class="plan__foot">Annual option: $115 / year</div>
+  </article>
+
+  <article class="plan">
+    <div class="plan__top">
+      <div class="plan__name">Teams</div>
+      <div class="plan__price">
+        <span class="amount">$49</span>
+        <span class="per">/ month</span>
+      </div>
+      <p class="plan__desc">For schools, clubs, or companies who want group training.</p>
+    </div>
+
+    <ul class="plan__features">
+      <li>✅ Team dashboard</li>
+      <li>✅ Assign labs to members</li>
+      <li>✅ Progress analytics</li>
+      <li>✅ Private labs (optional)</li>
+      <li>✅ Dedicated support</li>
+    </ul>
+
+    <a class="plan__btn plan__btn--ghost" href="{{ path('app_business') }}">Contact / Apply</a>
+  </article>
+</section>
+
+{# ---------------------------
+   CASE 3: LOGGED IN + STUDENT (ROLE_USER only)
+   => show shop + "Go to cart" button (NO sidebar cart here)
+---------------------------- #}
+{% else %}
+
+<section class="price-hero">
+  <div class="price-hero__card">
+    <div class="price-kicker">Shop</div>
+    <h1 class="price-title">Choose what you want to buy</h1>
+    <p class="price-sub">
+      Demo cart system (mandatory feature). Add items then checkout in your cart (no real payment).
+    </p>
+  </div>
+</section>
+
+<div class="shop-head" style="margin-top:-6px;">
+  <div class="left">
+    <div class="mini-pill">Connected as {{ app.user.userIdentifier }}</div>
+    <p>Tip: add multiple items, then go to your cart.</p>
+  </div>
+  <div class="shop-actions">
+    <a class="plan__btn plan__btn--ghost" href="{{ path('app_cart') }}">Go to cart →</a>
+  </div>
+</div>
+
+<section class="price-grid" style="max-width:1100px; margin: 16px auto 0; padding: 0 18px;">
+  {% for p in products %}
+    <article class="plan {% if p.tag == 'Most Popular' %}plan--popular{% endif %}">
+      {% if p.tag %}
+        <div class="plan__badge">{{ p.tag }}</div>
+      {% endif %}
+
+      <div class="plan__top">
+        <div class="plan__name">{{ p.name }}</div>
+        <div class="plan__price">
+          <span class="amount">${{ (p.price / 100)|number_format(0) }}</span>
+          <span class="per">{% if p.sku starts with 'pro-' %}/ plan{% else %}/ one-time{% endif %}</span>
+        </div>
+        <p class="plan__desc">{{ p.desc }}</p>
+      </div>
+
+      <ul class="plan__features">
+        <li>✅ Demo content</li>
+        <li>✅ Instant access (demo)</li>
+        <li>✅ SKU: {{ p.sku }}</li>
+      </ul>
+
+      <form method="post" action="{{ path('app_cart_add', {sku: p.sku}) }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('add_to_cart_' ~ p.sku) }}">
+        <button class="plan__btn plan__btn--primary" type="submit">Add to cart</button>
+      </form>
+    </article>
+  {% endfor %}
+</section>
+
+<section class="price-strip" style="margin-top: 20px;">
+  <div class="strip">
+    <div>
+      <h2>Checkout is a demo</h2>
+      <p>It will create an Order in database + an Invoice page you can print.</p>
+    </div>
+    <a class="strip__btn" href="{{ path('app_cart') }}">Open Cart</a>
+  </div>
+</section>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,290 @@
+/* Dashboard page only */
+.dash{ padding-top: 6px; }
+
+.dash-hero{
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 14px;
+  align-items: start;
+}
+
+@media (max-width: 980px){
+  .dash-hero{ grid-template-columns: 1fr; }
+}
+
+.dash-hero__left{
+  padding: 22px;
+  border-radius: 18px;
+  background: rgba(10,16,24,.55);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 30px 80px rgba(0,0,0,.35);
+  backdrop-filter: blur(10px);
+}
+
+.dash-kicker{
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.75);
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+.dash-title{
+  margin: 0 0 10px;
+  font-size: 40px;
+  letter-spacing: -.6px;
+  line-height: 1.08;
+}
+
+.dash-accent{ color: #22B0FC; }
+
+.dash-sub{
+  margin: 0 0 14px;
+  color: rgba(255,255,255,.72);
+  line-height: 1.6;
+  max-width: 900px;
+}
+
+.dash-actions{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.dash-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.92);
+  font-weight: 1000;
+  text-decoration: none;
+  transition: .15s ease;
+}
+
+.dash-btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); }
+.dash-btn--primary{ border-color: rgba(34,176,252,.45); background: rgba(34,176,252,.18); }
+.dash-btn--primary:hover{ background: rgba(34,176,252,.26); }
+.dash-btn--ghost{ background: rgba(255,255,255,.03); }
+
+.dash-hero__right{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 12px;
+}
+
+.stat{
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(10,16,24,.40);
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.stat__num{
+  font-size: 26px;
+  font-weight: 1000;
+}
+
+.stat__label{
+  margin-top: 6px;
+  color: rgba(255,255,255,.70);
+}
+
+.stat--rank{
+  background: linear-gradient(135deg, rgba(34,176,252,.12), rgba(255,106,88,.12));
+  border-color: rgba(255,255,255,.10);
+}
+
+.dash-section{ margin-top: 16px; }
+
+.dash-section__head{
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.dash-section__head h2{ margin: 0 0 6px; font-size: 22px; }
+.dash-section__head p{ margin: 0; color: rgba(255,255,255,.70); }
+
+.dash-link{
+  color: rgba(255,255,255,.85);
+  text-decoration: none;
+  font-weight: 900;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+}
+.dash-link:hover{ background: rgba(255,255,255,.06); }
+
+/* Carousel */
+.carousel{
+  border-radius: 18px;
+  background: rgba(10,16,24,.40);
+  border: 1px solid rgba(255,255,255,.08);
+  overflow: hidden;
+}
+
+.carousel__track{
+  display: flex;
+  /* ❌ remove width:300% */
+  width: 100%;
+  transition: transform .25s ease;
+}
+
+.carousel__page{
+  /* ✅ each page is exactly 100% of carousel width */
+  flex: 0 0 100%;
+  width: 100%;
+  padding: 14px;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 12px;
+}
+
+@media (max-width: 980px){
+  .carousel__page{ grid-template-columns: 1fr; }
+}
+
+
+.car-btn{
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.92);
+  font-weight: 1000;
+  cursor: pointer;
+}
+.car-btn:disabled{
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.car-indicator{
+  padding: 8px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  color: rgba(255,255,255,.80);
+  font-weight: 900;
+}
+
+/* Path cards */
+.path{
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.03);
+  display: grid;
+  gap: 8px;
+}
+
+.path__icon{ font-size: 22px; }
+.path__title{ font-weight: 1000; }
+.path__desc{ color: rgba(255,255,255,.72); line-height: 1.55; min-height: 44px; }
+
+.path__meta{
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.path__meta span{
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.18);
+  color: rgba(255,255,255,.78);
+}
+
+.path__btn{
+  margin-top: 2px;
+  display: inline-flex;
+  justify-content: center;
+  padding: 10px 12px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-weight: 1000;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.92);
+}
+.path__btn:hover{ background: rgba(255,255,255,.06); transform: translateY(-1px); }
+
+/* Recommended labs */
+.labs-mini{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 12px;
+}
+
+@media (max-width: 980px){
+  .labs-mini{ grid-template-columns: 1fr; }
+}
+
+.lab-mini{
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(10,16,24,.40);
+  border: 1px solid rgba(255,255,255,.08);
+  text-decoration: none;
+  color: rgba(255,255,255,.92);
+  display: grid;
+  gap: 10px;
+}
+
+.lab-mini:hover{
+  transform: translateY(-1px);
+  background: rgba(10,16,24,.48);
+}
+
+.lab-mini__top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.lab-mini__title{ font-weight: 1000; }
+
+.lab-mini__pill{
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.18);
+  color: rgba(255,255,255,.80);
+}
+
+.lab-mini__desc{
+  color: rgba(255,255,255,.70);
+  line-height: 1.55;
+  min-height: 44px;
+}
+
+.lab-mini__meta{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(255,255,255,.72);
+  font-size: 13px;
+}
+
+.empty{
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.03);
+  color: rgba(255,255,255,.70);
+}

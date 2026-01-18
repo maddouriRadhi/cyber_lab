@@ -1,0 +1,171 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard — CyberLab{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="dash">
+
+  <section class="dash-hero">
+    <div class="dash-hero__left">
+      <div class="dash-kicker">Student Dashboard</div>
+
+      <h1 class="dash-title">
+        Welcome back,
+        <span class="dash-accent">
+          {% if app.user and attribute(app.user, 'fullName') is defined and app.user.fullName %}
+            {{ app.user.fullName }}
+          {% else %}
+            {{ app.user.userIdentifier }}
+          {% endif %}
+        </span>
+      </h1>
+
+      <p class="dash-sub">
+        Learn cybersecurity the right way: structured paths, realistic labs, and progress tracking.
+      </p>
+
+      <div class="dash-actions">
+        <a class="dash-btn dash-btn--primary" href="{{ path('app_labs') }}">Practice labs</a>
+        <a class="dash-btn dash-btn--ghost" href="{{ path('app_leaderboard') }}">Leaderboard</a>
+      </div>
+    </div>
+
+    <div class="dash-hero__right">
+      <div class="stat">
+        <div class="stat__num">{{ solvedCount|default(0) }}</div>
+        <div class="stat__label">Labs solved</div>
+      </div>
+      <div class="stat">
+        <div class="stat__num">{{ totalLabs|default(0) }}</div>
+        <div class="stat__label">Labs available</div>
+      </div>
+      <div class="stat">
+        <div class="stat__num">{{ streakDays|default(0) }}</div>
+        <div class="stat__label">Day streak</div>
+      </div>
+      <div class="stat stat--rank">
+        <div class="stat__num">{{ rank|default('—') }}</div>
+        <div class="stat__label">Rank</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dash-section">
+    <div class="dash-section__head">
+      <div>
+        <h2>Learning Paths</h2>
+        <p>Pick a track and follow it step-by-step.</p>
+      </div>
+
+      <div class="carousel-controls">
+        <button class="car-btn" id="carPrev" type="button" aria-label="Previous">←</button>
+        <div class="car-indicator">
+          <span id="carPage">1</span> / <span id="carTotal">3</span>
+        </div>
+        <button class="car-btn" id="carNext" type="button" aria-label="Next">→</button>
+      </div>
+    </div>
+
+    <div class="carousel">
+      <div class="carousel__track" id="carTrack">
+
+        <div class="carousel__page">
+          <div class="path path--linux"><div class="path__icon">🐧</div><div class="path__title">Linux Fundamentals</div><div class="path__desc">CLI, permissions, users, processes, files.</div><div class="path__meta"><span>Beginner</span><span>12 labs</span></div><a class="path__btn" href="{{ path('app_learn_linux') }}">Start</a></div>
+          <div class="path path--net"><div class="path__icon">📡</div><div class="path__title">Networking Core</div><div class="path__desc">IPv4/IPv6, subnetting, ports, DNS, HTTP.</div><div class="path__meta"><span>Beginner</span><span>10 labs</span></div><a class="path__btn" href="{{ path('app_learn_networking') }}">Start</a></div>
+          <div class="path path--web"><div class="path__icon">🕸️</div><div class="path__title">Web Pentesting</div><div class="path__desc">OWASP, recon, SQLi, XSS, auth flaws.</div><div class="path__meta"><span>Intermediate</span><span>14 labs</span></div><a class="path__btn" href="{{ path('app_learn_devsecops') }}">Start</a></div>
+          <div class="path path--osint"><div class="path__icon">🧭</div><div class="path__title">OSINT & Recon</div><div class="path__desc">Footprinting, metadata, subdomains, tools.</div><div class="path__meta"><span>Beginner</span><span>8 labs</span></div><a class="path__btn" href="{{ path('app_learn_reverse') }}">Start</a></div>
+          <div class="path path--blue"><div class="path__icon">🛡️</div><div class="path__title">Blue Team Basics</div><div class="path__desc">Logs, SIEM intro, detection, incident basics.</div><div class="path__meta"><span>Intermediate</span><span>9 labs</span></div><a class="path__btn" href="{{ path('app_learn_mobile') }}">Start</a></div>
+          <div class="path path--red"><div class="path__icon">⚔️</div><div class="path__title">Red Team Starter</div><div class="path__desc">Attack chain, pivoting, basic exploitation.</div><div class="path__meta"><span>Intermediate</span><span>11 labs</span></div><a class="path__btn" href="{{ path('app_learn_ctf') }}">Start</a></div>
+        </div>
+
+        <div class="carousel__page">
+          <div class="path path--crypt"><div class="path__icon">🔐</div><div class="path__title">Crypto Basics</div><div class="path__desc">Hashes, symmetric/asymmetric, TLS overview.</div><div class="path__meta"><span>Beginner</span><span>7 labs</span></div><a class="path__btn" href="{{ path('app_labs') }}">Start</a></div>
+          <div class="path path--forensic"><div class="path__icon">🧪</div><div class="path__title">Forensics Intro</div><div class="path__desc">Artifacts, triage, disk basics, evidence.</div><div class="path__meta"><span>Intermediate</span><span>6 labs</span></div><a class="path__btn" href="{{ path('app_labs') }}">Start</a></div>
+          <div class="path path--mal"><div class="path__icon">🧬</div><div class="path__title">Malware Analysis</div><div class="path__desc">Static/dynamic basics, indicators, sandbox.</div><div class="path__meta"><span>Advanced</span><span>8 labs</span></div><a class="path__btn" href="{{ path('app_labs') }}">Start</a></div>
+          <div class="path path--api"><div class="path__icon">🧩</div><div class="path__title">API Security</div><div class="path__desc">Auth, JWT, rate limits, common API bugs.</div><div class="path__meta"><span>Intermediate</span><span>7 labs</span></div><a class="path__btn" href="{{ path('app_labs') }}">Start</a></div>
+          <div class="path path--cloud"><div class="path__icon">☁️</div><div class="path__title">Cloud Security</div><div class="path__desc">IAM, misconfigs, basic AWS/Azure risks.</div><div class="path__meta"><span>Intermediate</span><span>9 labs</span></div><a class="path__btn" href="{{ path('app_labs') }}">Start</a></div>
+          <div class="path path--soc"><div class="path__icon">📊</div><div class="path__title">SOC Analyst</div><div class="path__desc">Alerts, triage workflow, MITRE basics.</div><div class="path__meta"><span>Intermediate</span><span>10 labs</span></div><a class="path__btn" href="{{ path('app_labs') }}">Start</a></div>
+        </div>
+
+        <div class="carousel__page">
+          <div class="path path--windows"><div class="path__icon">🪟</div><div class="path__title">Windows Internals</div><div class="path__desc">Processes, services, permissions, basics.</div><div class="path__meta"><span>Intermediate</span><span>8 labs</span></div><a class="path__btn" href="{{ path('app_labs') }}">Start</a></div>
+          <div class="path path--ad"><div class="path__icon">🏢</div><div class="path__title">Active Directory</div><div class="path__desc">Kerberos, AD attacks, enumeration, defenses.</div><div class="path__meta"><span>Advanced</span><span>12 labs</span></div><a class="path__btn" href="{{ path('app_labs') }}">Start</a></div>
+          <div class="path path--reverse"><div class="path__icon">🧠</div><div class="path__title">Reverse Engineering</div><div class="path__desc">Assembly basics, debugging, reversing workflow.</div><div class="path__meta"><span>Advanced</span><span>9 labs</span></div><a class="path__btn" href="{{ path('app_labs') }}">Start</a></div>
+          <div class="path path--mobile"><div class="path__icon">📱</div><div class="path__title">Mobile Security</div><div class="path__desc">Android basics, app risks, reverse & testing.</div><div class="path__meta"><span>Advanced</span><span>7 labs</span></div><a class="path__btn" href="{{ path('app_labs') }}">Start</a></div>
+          <div class="path path--devsec"><div class="path__icon">🧰</div><div class="path__title">DevSecOps</div><div class="path__desc">CI/CD security, secrets, SAST/DAST basics.</div><div class="path__meta"><span>Intermediate</span><span>8 labs</span></div><a class="path__btn" href="{{ path('app_labs') }}">Start</a></div>
+          <div class="path path--ctf"><div class="path__icon">🏁</div><div class="path__title">CTF Starter Pack</div><div class="path__desc">Pwn, web, crypto, misc — learn by playing.</div><div class="path__meta"><span>All levels</span><span>18 labs</span></div><a class="path__btn" href="{{ path('app_labs') }}">Start</a></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="dash-section">
+    <div class="dash-section__head">
+      <div>
+        <h2>Recommended for you</h2>
+        <p>Fresh labs to keep you moving.</p>
+      </div>
+      <a class="dash-link" href="{{ path('app_labs') }}">View all →</a>
+    </div>
+
+    <div class="labs-mini">
+      {% for lab in latestLabs|default([]) %}
+        <a class="lab-mini" href="{{ path('app_lab_show', {id: lab.id}) }}">
+          <div class="lab-mini__top">
+            <div class="lab-mini__title">{{ lab.title }}</div>
+            <div class="lab-mini__pill">{{ lab.difficulty }}</div>
+          </div>
+          <div class="lab-mini__desc">
+            {{ lab.description|slice(0, 110) }}{% if lab.description|length > 110 %}...{% endif %}
+          </div>
+          <div class="lab-mini__meta">
+            <span>⭐ {{ lab.points }} pts</span>
+            <span>Open →</span>
+          </div>
+        </a>
+      {% else %}
+        <div class="empty">
+          No labs yet. Add labs using fixtures or admin later.
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+</div>
+
+<script>
+(() => {
+  const track = document.getElementById('carTrack');
+  const pages = track.querySelectorAll('.carousel__page');
+  const prev = document.getElementById('carPrev');
+  const next = document.getElementById('carNext');
+  const pageEl = document.getElementById('carPage');
+  const totalEl = document.getElementById('carTotal');
+
+  let index = 0;
+  totalEl.textContent = String(pages.length);
+
+  function render(){
+    track.style.transform = `translateX(${-index * 100}%)`;
+    pageEl.textContent = String(index + 1);
+    prev.disabled = (index === 0);
+    next.disabled = (index === pages.length - 1);
+  }
+
+  prev.addEventListener('click', () => { if(index>0){ index--; render(); }});
+  next.addEventListener('click', () => { if(index<pages.length-1){ index++; render(); }});
+
+  window.addEventListener('keydown', (e) => {
+    if(e.key === 'ArrowLeft') prev.click();
+    if(e.key === 'ArrowRight') next.click();
+  });
+
+  render();
+})();
+</script>
+{% endblock %}

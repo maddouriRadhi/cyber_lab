@@ -1,0 +1,171 @@
+/* Teacher admin pages (keeps admin.css as base) */
+
+.tfilters{
+  display:flex;
+  gap:10px;
+  flex-wrap: wrap;
+  margin: 10px 0 14px;
+}
+
+.tfilter{
+  text-decoration:none;
+  color: rgba(255,255,255,.9);
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.03);
+  padding: 10px 12px;
+  border-radius: 999px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.tfilter span{
+  font-size: 12px;
+  opacity: .9;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.18);
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+.tfilter:hover{
+  border-color: rgba(24,243,177,.25);
+  background: rgba(24,243,177,.06);
+}
+
+.tfilter.is-active{
+  border-color: rgba(24,243,177,.35);
+  background: rgba(24,243,177,.10);
+}
+
+.tcard{
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.18);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.ttableWrap{
+  overflow:auto;
+}
+
+.ttable{
+  width:100%;
+  border-collapse: collapse;
+  min-width: 980px;
+}
+
+.ttable th, .ttable td{
+  padding: 12px 12px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  vertical-align: middle;
+}
+
+.ttable th{
+  text-align:left;
+  font-size: 12px;
+  letter-spacing: .3px;
+  opacity: .85;
+}
+
+.tmuted{ opacity: .8; }
+.tstrong{ font-weight: 800; }
+
+.tstatus{
+  display:inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+}
+
+.tstatus--new{
+  border-color: rgba(255,186,73,.35);
+  background: rgba(255,186,73,.10);
+}
+
+.tstatus--approved{
+  border-color: rgba(24,243,177,.35);
+  background: rgba(24,243,177,.10);
+}
+
+.tstatus--rejected{
+  border-color: rgba(255,77,109,.35);
+  background: rgba(255,77,109,.10);
+}
+
+.tactions{
+  white-space: nowrap;
+}
+
+.tinline{ display:inline-block; margin-left: 6px; }
+
+.tbtn{
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  color: rgba(255,255,255,.92);
+  padding: 8px 10px;
+  border-radius: 12px;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+}
+
+.tbtn:hover{
+  border-color: rgba(24,243,177,.25);
+  background: rgba(24,243,177,.06);
+}
+
+.tbtn--ok:hover{
+  border-color: rgba(24,243,177,.35);
+  background: rgba(24,243,177,.10);
+}
+
+.tbtn--warn:hover{
+  border-color: rgba(255,186,73,.35);
+  background: rgba(255,186,73,.10);
+}
+
+.tbtn--danger:hover{
+  border-color: rgba(255,77,109,.35);
+  background: rgba(255,77,109,.10);
+}
+
+.tempty{
+  padding: 18px;
+  text-align:center;
+  opacity: .8;
+}
+
+.tgrid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.tpanel{
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.18);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.trow{
+  display:flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.trow:last-child{ border-bottom: none; }
+
+.th3{ margin: 0 0 10px; }
+.tpara{ margin: 0 0 14px; opacity: .9; line-height: 1.55; }
+
+.tacts{ display:flex; gap: 10px; flex-wrap: wrap; }
+
+@media (max-width: 980px){
+  .tgrid{ grid-template-columns: 1fr; }
+}

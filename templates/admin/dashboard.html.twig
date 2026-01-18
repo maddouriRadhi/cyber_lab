@@ -1,0 +1,124 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Admin Dashboard - CyberLab{% endblock %}
+
+{% block admin_main %}
+  <div class="admin__top">
+    <div>
+      <h1 class="admin__title">Admin Dashboard</h1>
+      <p class="admin__subtitle">Quick overview of users, labs, activity, and teacher applications.</p>
+    </div>
+
+    <div class="pill">Logged as <b>{{ app.user.userIdentifier }}</b></div>
+  </div>
+
+  <div class="admin__grid">
+    {# USERS #}
+    <a class="cardx" href="{{ path('app_admin_users') }}">
+      <div class="cardx__icon">👤</div>
+      <div>
+        <div class="cardx__title">Users</div>
+        <div class="cardx__text">
+          Total: <b>{{ totalUsers }}</b> • Active: <b>{{ activeUsers }}</b> • Disabled: <b>{{ disabledUsers }}</b>
+        </div>
+      </div>
+      <div class="cardx__arrow">→</div>
+    </a>
+
+    <div class="cardx cardx--info">
+      <div class="cardx__icon">🛡️</div>
+      <div>
+        <div class="cardx__title">Roles</div>
+        <div class="cardx__text">
+          Admins: <b>{{ adminsCount }}</b> • Teachers: <b>{{ teachersCount }}</b> • Students: <b>{{ totalUsers - adminsCount - teachersCount }}</b>
+        </div>
+      </div>
+      <div class="cardx__arrow">✔</div>
+    </div>
+
+    {# LABS #}
+    <a class="cardx" href="{{ path('app_admin_labs') }}">
+      <div class="cardx__icon">🧪</div>
+      <div>
+        <div class="cardx__title">Labs</div>
+        <div class="cardx__text">
+          Total: <b>{{ totalLabs }}</b> • Published: <b>{{ publishedLabs }}</b> • Draft: <b>{{ draftLabs }}</b>
+        </div>
+      </div>
+      <div class="cardx__arrow">→</div>
+    </a>
+
+    <div class="cardx cardx--info">
+      <div class="cardx__icon">🏁</div>
+      <div>
+        <div class="cardx__title">Solves</div>
+        <div class="cardx__text">
+          Total completions submitted by students: <b>{{ totalSolves }}</b>
+        </div>
+      </div>
+      <div class="cardx__arrow">✔</div>
+    </div>
+
+    {# TEACHER APPLICATIONS #}
+    <a class="cardx" href="{{ path('app_admin_teachers') }}">
+      <div class="cardx__icon">🎓</div>
+      <div>
+        <div class="cardx__title">Teacher Applications</div>
+        <div class="cardx__text">
+          Total: <b>{{ applicationsTotal }}</b> • New: <b>{{ applicationsNew }}</b>
+          • Approved: <b>{{ applicationsApproved }}</b> • Rejected: <b>{{ applicationsRejected }}</b>
+        </div>
+      </div>
+      <div class="cardx__arrow">→</div>
+    </a>
+
+    <div class="cardx cardx--info">
+      <div class="cardx__icon">⚡</div>
+      <div>
+        <div class="cardx__title">Admin Actions</div>
+        <div class="cardx__text">
+          Use the sidebar to manage users, publish labs, and review teacher applications.
+        </div>
+      </div>
+      <div class="cardx__arrow">✔</div>
+    </div>
+  </div>
+
+  <div style="height:16px;"></div>
+
+  <div class="admin__grid">
+    <div class="cardx cardx--info">
+      <div class="cardx__icon">🆕</div>
+      <div>
+        <div class="cardx__title">Latest Users</div>
+        <div class="cardx__text">
+          {% if latestUsers is not empty %}
+            {% for u in latestUsers %}
+              <div>#{{ u.id }} — {{ u.fullName ?: '—' }} ({{ u.email }})</div>
+            {% endfor %}
+          {% else %}
+            No users yet.
+          {% endif %}
+        </div>
+      </div>
+      <div class="cardx__arrow">✔</div>
+    </div>
+
+    <div class="cardx cardx--info">
+      <div class="cardx__icon">📩</div>
+      <div>
+        <div class="cardx__title">Latest Teacher Applications</div>
+        <div class="cardx__text">
+          {% if latestApps is not empty %}
+            {% for a in latestApps %}
+              <div>#{{ a.id }} — {{ a.fullName }} ({{ a.status }})</div>
+            {% endfor %}
+          {% else %}
+            No applications yet.
+          {% endif %}
+        </div>
+      </div>
+      <div class="cardx__arrow">✔</div>
+    </div>
+  </div>
+{% endblock %}

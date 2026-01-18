@@ -1,0 +1,172 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Linux Fundamentals — CyberLab{% endblock %}
+
+{% block body %}
+<div class="container" style="padding: 28px 0;">
+  <div class="card" style="max-width: 980px; margin: 0 auto;">
+    <div class="card__body">
+
+      <div style="display:flex; gap:14px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;">
+        <div>
+          <div class="badge" style="display:inline-flex; align-items:center; gap:10px;">
+            <span style="font-size:18px;">🐧</span>
+            Linux Fundamentals
+          </div>
+          <h1 class="h1" style="margin:10px 0 6px;">Start with Linux like a real hacker</h1>
+          <p class="p" style="margin:0; opacity:.9;">
+            Understand the system, master the terminal, and navigate like you own the machine.
+          </p>
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a class="btn btn--ghost" href="{{ path('app_dashboard') }}">← Back</a>
+          <a class="btn btn--primary" href="{{ path('app_labs') }}">Practice labs</a>
+        </div>
+      </div>
+
+      <div style="height:1px; background: rgba(255,255,255,.08); margin:18px 0;"></div>
+
+      <div class="grid" style="display:grid; grid-template-columns: 1.1fr .9fr; gap:16px;">
+        <section class="card" style="margin:0;">
+          <div class="card__body">
+            <h2 class="h2" style="margin:0 0 8px;">1) What is Linux?</h2>
+            <p class="p" style="margin:0 0 10px;">
+              Linux is a family of operating systems based on the Linux kernel. It powers servers, cloud, security tools,
+              routers, and most hacking distributions (like Kali).
+            </p>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <span class="pill">Kernel + User space</span>
+              <span class="pill">Distributions (Ubuntu, Debian, Kali)</span>
+              <span class="pill">Terminal-first mindset</span>
+              <span class="pill">Permissions & users</span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="card" style="margin:0;">
+          <div class="card__body">
+            <h2 class="h2" style="margin:0 0 8px;">Quick goals</h2>
+            <div style="display:grid; gap:10px;">
+              <div class="pill">Navigate folders</div>
+              <div class="pill">Read / edit files</div>
+              <div class="pill">Understand permissions</div>
+              <div class="pill">Manage processes</div>
+              <div class="pill">Basic networking commands</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div style="height:1px; background: rgba(255,255,255,.08); margin:18px 0;"></div>
+
+      <section>
+        <h2 class="h2" style="margin:0 0 10px;">2) Essential terminal commands</h2>
+
+        <div style="display:grid; grid-template-columns: repeat(2, minmax(260px, 1fr)); gap:14px;">
+          <div class="card" style="margin:0;">
+            <div class="card__body">
+              <div class="badge" style="margin-bottom:10px;">Navigation</div>
+              <div style="display:grid; gap:10px;">
+                <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                  <div style="font-weight:800;">pwd</div>
+                  <div style="opacity:.85; margin-top:4px;">Show the current directory.</div>
+                </div>
+                <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                  <div style="font-weight:800;">ls -la</div>
+                  <div style="opacity:.85; margin-top:4px;">List files (including hidden) with details.</div>
+                </div>
+                <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                  <div style="font-weight:800;">cd /path</div>
+                  <div style="opacity:.85; margin-top:4px;">Move between directories.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin:0;">
+            <div class="card__body">
+              <div class="badge" style="margin-bottom:10px;">Files</div>
+              <div style="display:grid; gap:10px;">
+                <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                  <div style="font-weight:800;">cat / less</div>
+                  <div style="opacity:.85; margin-top:4px;">Read a file (less is scrollable).</div>
+                </div>
+                <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                  <div style="font-weight:800;">cp / mv / rm</div>
+                  <div style="opacity:.85; margin-top:4px;">Copy, move/rename, delete files.</div>
+                </div>
+                <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                  <div style="font-weight:800;">mkdir / touch</div>
+                  <div style="opacity:.85; margin-top:4px;">Create folders and files.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin:0;">
+            <div class="card__body">
+              <div class="badge" style="margin-bottom:10px;">Permissions</div>
+              <div style="display:grid; gap:10px;">
+                <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                  <div style="font-weight:800;">chmod</div>
+                  <div style="opacity:.85; margin-top:4px;">Change permissions (rwx).</div>
+                </div>
+                <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                  <div style="font-weight:800;">chown</div>
+                  <div style="opacity:.85; margin-top:4px;">Change owner / group of a file.</div>
+                </div>
+                <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                  <div style="font-weight:800;">sudo</div>
+                  <div style="opacity:.85; margin-top:4px;">Run commands with admin privileges.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin:0;">
+            <div class="card__body">
+              <div class="badge" style="margin-bottom:10px;">Processes</div>
+              <div style="display:grid; gap:10px;">
+                <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                  <div style="font-weight:800;">ps aux</div>
+                  <div style="opacity:.85; margin-top:4px;">Show running processes.</div>
+                </div>
+                <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                  <div style="font-weight:800;">top</div>
+                  <div style="opacity:.85; margin-top:4px;">Live view of CPU/RAM usage.</div>
+                </div>
+                <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                  <div style="font-weight:800;">kill PID</div>
+                  <div style="opacity:.85; margin-top:4px;">Stop a process by its PID.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin:14px 0 0;">
+          <div class="card__body">
+            <h2 class="h2" style="margin:0 0 8px;">3) Cheat sheet</h2>
+            <div style="display:grid; gap:8px;">
+              <div class="pill">Current folder: <strong style="margin-left:8px;">pwd</strong></div>
+              <div class="pill">List all: <strong style="margin-left:8px;">ls -la</strong></div>
+              <div class="pill">Move: <strong style="margin-left:8px;">cd ..</strong></div>
+              <div class="pill">Search text: <strong style="margin-left:8px;">grep -R "word" .</strong></div>
+              <div class="pill">Find files: <strong style="margin-left:8px;">find . -name "*.log"</strong></div>
+              <div class="pill">Read logs: <strong style="margin-left:8px;">tail -f /var/log/syslog</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; gap:10px; margin-top:16px; flex-wrap:wrap;">
+          <a class="btn btn--ghost" href="{{ path('app_learn') }}">← Learning home</a>
+          <a class="btn btn--primary" href="{{ path('app_learn_networking') }}">Next: Networking Core →</a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

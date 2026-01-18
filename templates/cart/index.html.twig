@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cart — CyberLab{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/pricing.css') }}">
+{% endblock %}
+
+{% block body %}
+<section class="price-hero">
+  <div class="price-hero__card">
+    <div class="price-kicker">Cart</div>
+    <h1 class="price-title">Your Cart</h1>
+    <p class="price-sub">Review items, change quantities, then checkout (demo).</p>
+
+    <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+      <a class="plan__btn plan__btn--ghost" href="{{ path('app_pricing') }}">← Back to shop</a>
+      {% if lines is not empty %}
+        <a class="plan__btn plan__btn--primary" href="{{ path('app_cart_checkout_page') }}">Checkout</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="price-grid" style="max-width:1100px; margin: 0 auto; padding: 0 18px;">
+  <article class="plan" style="grid-column: 1 / -1;">
+    <div class="plan__top">
+      <div class="plan__name">Items</div>
+      <div class="plan__price">
+        <span class="amount">${{ (total/100)|number_format(0) }}</span>
+        <span class="per">total</span>
+      </div>
+      <p class="plan__desc">This is a demo cart (session-based).</p>
+    </div>
+
+    {% if lines is empty %}
+      <div class="plan__desc" style="opacity:.85;">Cart is empty.</div>
+    {% else %}
+      <div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;">
+        {% for l in lines %}
+          <div style="display:flex; gap:12px; justify-content:space-between; align-items:center; border:1px solid rgba(255,255,255,.08); background: rgba(0,0,0,.18); padding:12px; border-radius:12px;">
+            <div style="min-width:0;">
+              <div style="font-weight:900; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ l.name }}</div>
+              <div style="opacity:.85; font-size:13px;">
+                ${{ (l.unit/100)|number_format(0) }} • Line: ${{ (l.lineTotal/100)|number_format(0) }}
+              </div>
+            </div>
+
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;">
+              <form method="post" action="{{ path('app_cart_qty', {sku: l.sku}) }}" style="display:flex; gap:8px; align-items:center;">
+                <input type="hidden" name="_token" value="{{ csrf_token('qty_cart_' ~ l.sku) }}">
+                <input name="qty" type="number" min="1" max="10" value="{{ l.qty }}"
+                       style="width:70px; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); color: rgba(255,255,255,.92);">
+                <button class="plan__btn plan__btn--ghost" type="submit" style="padding:10px 12px;">Update</button>
+              </form>
+
+              <form method="post" action="{{ path('app_cart_remove', {sku: l.sku}) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('remove_from_cart_' ~ l.sku) }}">
+                <button class="plan__btn plan__btn--ghost" type="submit" style="padding:10px 12px;">Remove</button>
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+          <div style="font-weight:900;">Total</div>
+          <div style="font-weight:900;">${{ (total/100)|number_format(0) }}</div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+          <a class="plan__btn plan__btn--primary" href="{{ path('app_cart_checkout_page') }}">Checkout</a>
+
+          <form method="post" action="{{ path('app_cart_clear') }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('clear_cart') }}">
+            <button class="plan__btn plan__btn--ghost" type="submit">Clear cart</button>
+          </form>
+        </div>
+      </div>
+    {% endif %}
+  </article>
+</section>
+{% endblock %}

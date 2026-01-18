@@ -1,0 +1,66 @@
+{% extends 'admin/_layout.html.twig' %}
+
+{% block admin_content %}
+  <div class="admin__top">
+    <div>
+      <h1 class="admin__title">Labs</h1>
+      <p class="admin__subtitle">Create, edit, publish and manage labs.</p>
+    </div>
+    <a class="btn btn--primary" href="{{ path('app_admin_labs_new') }}">+ New Lab</a>
+  </div>
+
+  <div class="card" style="padding:0;">
+    <div style="overflow:auto;">
+      <table class="table" style="width:100%;">
+        <thead>
+        <tr>
+          <th style="padding:14px;">ID</th>
+          <th style="padding:14px;">Title</th>
+          <th style="padding:14px;">Difficulty</th>
+          <th style="padding:14px;">Points</th>
+          <th style="padding:14px;">Published</th>
+          <th style="padding:14px; width:220px;">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lab in labs %}
+          <tr>
+            <td style="padding:14px;">{{ lab.id }}</td>
+            <td style="padding:14px;">
+              <strong>{{ lab.title }}</strong>
+              <div style="opacity:.7; font-size:12px;">slug: {{ lab.slug }}</div>
+            </td>
+            <td style="padding:14px;">{{ lab.difficulty }}</td>
+            <td style="padding:14px;">{{ lab.points }}</td>
+            <td style="padding:14px;">
+              {% if lab.published %}
+                <span class="pill">✅ Yes</span>
+              {% else %}
+                <span class="pill" style="border-color: rgba(255,77,109,.25);">❌ No</span>
+              {% endif %}
+            </td>
+            <td style="padding:14px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn" href="{{ path('app_admin_labs_edit', {id: lab.id}) }}">Edit</a>
+
+              <form method="post" action="{{ path('app_admin_labs_toggle', {id: lab.id}) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('toggle_lab_' ~ lab.id) }}">
+                <button class="btn" type="submit">
+                  {{ lab.published ? 'Unpublish' : 'Publish' }}
+                </button>
+              </form>
+
+              <form method="post" action="{{ path('app_admin_labs_delete', {id: lab.id}) }}"
+                    onsubmit="return confirm('Delete this lab?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete_lab_' ~ lab.id) }}">
+                <button class="btn" style="border-color: rgba(255,77,109,.25);" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="6" style="padding:16px; opacity:.8;">No labs found.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

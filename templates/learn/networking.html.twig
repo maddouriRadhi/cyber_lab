@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Networking Core — CyberLab{% endblock %}
+
+{% block body %}
+<div class="container" style="padding: 28px 0;">
+  <div class="card" style="max-width: 980px; margin: 0 auto;">
+    <div class="card__body">
+
+      <div style="display:flex; gap:14px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;">
+        <div>
+          <div class="badge" style="display:inline-flex; align-items:center; gap:10px;">
+            <span style="font-size:18px;">📡</span>
+            Networking Core
+          </div>
+          <h1 class="h1" style="margin:10px 0 6px;">Understand the network, understand the attack</h1>
+          <p class="p" style="margin:0; opacity:.9;">
+            Learn the basics: IP, ports, DNS, HTTP, and how machines talk to each other.
+          </p>
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a class="btn btn--ghost" href="{{ path('app_dashboard') }}">← Back</a>
+          <a class="btn btn--primary" href="{{ path('app_labs') }}">Practice labs</a>
+        </div>
+      </div>
+
+      <div style="height:1px; background: rgba(255,255,255,.08); margin:18px 0;"></div>
+
+      <div style="display:grid; grid-template-columns: 1.1fr .9fr; gap:16px;">
+        <section class="card" style="margin:0;">
+          <div class="card__body">
+            <h2 class="h2" style="margin:0 0 8px;">1) What is networking?</h2>
+            <p class="p" style="margin:0 0 10px;">
+              Networking is how devices communicate. Cybersecurity depends on it: scanning, attacks, defense, monitoring,
+              and incident response all start from traffic.
+            </p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <span class="pill">IP address</span>
+              <span class="pill">Ports</span>
+              <span class="pill">Protocols</span>
+              <span class="pill">DNS</span>
+              <span class="pill">HTTP/HTTPS</span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="card" style="margin:0;">
+          <div class="card__body">
+            <h2 class="h2" style="margin:0 0 8px;">Quick goals</h2>
+            <div style="display:grid; gap:10px;">
+              <div class="pill">Know private vs public IP</div>
+              <div class="pill">Understand subnet / mask</div>
+              <div class="pill">Know TCP vs UDP</div>
+              <div class="pill">Read a basic request/response</div>
+              <div class="pill">Use ping, ip, nslookup</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div style="height:1px; background: rgba(255,255,255,.08); margin:18px 0;"></div>
+
+      <section>
+        <h2 class="h2" style="margin:0 0 10px;">2) Key concepts</h2>
+
+        <div style="display:grid; grid-template-columns: repeat(2, minmax(260px, 1fr)); gap:14px;">
+          <div class="card" style="margin:0;">
+            <div class="card__body">
+              <div class="badge" style="margin-bottom:10px;">IP Address</div>
+              <p class="p" style="margin:0;">
+                Identifies a device on a network. Most local networks use private ranges like 192.168.x.x.
+              </p>
+              <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                <span class="pill">IPv4</span>
+                <span class="pill">IPv6</span>
+                <span class="pill">Private vs Public</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin:0;">
+            <div class="card__body">
+              <div class="badge" style="margin-bottom:10px;">Ports</div>
+              <p class="p" style="margin:0;">
+                Services listen on ports. Example: HTTP 80, HTTPS 443, SSH 22.
+              </p>
+              <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                <span class="pill">0–65535</span>
+                <span class="pill">Well-known</span>
+                <span class="pill">Services</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin:0;">
+            <div class="card__body">
+              <div class="badge" style="margin-bottom:10px;">TCP vs UDP</div>
+              <p class="p" style="margin:0;">
+                TCP is reliable (handshake). UDP is fast (no guarantee).
+              </p>
+              <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                <span class="pill">TCP: Web, SSH</span>
+                <span class="pill">UDP: DNS, Streaming</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin:0;">
+            <div class="card__body">
+              <div class="badge" style="margin-bottom:10px;">DNS</div>
+              <p class="p" style="margin:0;">
+                Translates domains to IP addresses. If DNS is controlled, traffic can be redirected.
+              </p>
+              <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                <span class="pill">A / AAAA</span>
+                <span class="pill">CNAME</span>
+                <span class="pill">MX</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin:14px 0 0;">
+          <div class="card__body">
+            <h2 class="h2" style="margin:0 0 10px;">3) Useful commands</h2>
+
+            <div style="display:grid; grid-template-columns: repeat(2, minmax(260px, 1fr)); gap:12px;">
+              <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                <div style="font-weight:800;">ping 8.8.8.8</div>
+                <div style="opacity:.85; margin-top:4px;">Checks connectivity (ICMP).</div>
+              </div>
+              <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                <div style="font-weight:800;">ip a / ipconfig</div>
+                <div style="opacity:.85; margin-top:4px;">See your IP configuration.</div>
+              </div>
+              <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                <div style="font-weight:800;">nslookup google.com</div>
+                <div style="opacity:.85; margin-top:4px;">Resolve a domain using DNS.</div>
+              </div>
+              <div style="border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px; background: rgba(0,0,0,.18);">
+                <div style="font-weight:800;">curl https://example.com</div>
+                <div style="opacity:.85; margin-top:4px;">Send a request and inspect response.</div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <span class="pill">HTTP = request/response</span>
+              <span class="pill">HTTPS = encrypted HTTP</span>
+              <span class="pill">Ports map services</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; gap:10px; margin-top:16px; flex-wrap:wrap;">
+          <a class="btn btn--ghost" href="{{ path('app_learn_linux') }}">← Back: Linux</a>
+          <a class="btn btn--primary" href="{{ path('app_learn') }}">Learning home →</a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Learn — CyberLab{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/learn.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="learn">
+  <section class="learn-hero">
+    <div>
+      <div class="learn-kicker">Learn Hub</div>
+      <h1 class="learn-title">Choose a mini-module</h1>
+      <p class="learn-sub">
+        Quick visual pages: definitions, key concepts, and “starter commands/tools”.
+      </p>
+
+      <div class="learn-actions">
+        <a class="learn-btn learn-btn--primary" href="{{ path('app_learn_linux') }}">🐧 Linux</a>
+        <a class="learn-btn learn-btn--primary" href="{{ path('app_learn_networking') }}">📡 Networking</a>
+        <a class="learn-btn" href="{{ path('app_learn_reverse') }}">🧠 Reverse</a>
+        <a class="learn-btn" href="{{ path('app_learn_mobile') }}">📱 Mobile</a>
+        <a class="learn-btn" href="{{ path('app_learn_devsecops') }}">🧰 DevSecOps</a>
+        <a class="learn-btn" href="{{ path('app_learn_ctf') }}">🏁 CTF</a>
+      </div>
+    </div>
+
+    <div class="learn-pill">Connected as {{ app.user ? app.user.userIdentifier : '—' }}</div>
+  </section>
+
+  <section class="learn-grid">
+    <div class="learn-card">
+      <h3>🐧 Linux Fundamentals</h3>
+      <p>Terminal basics, permissions, processes, files, networking commands.</p>
+      <div class="learn-badges">
+        <span class="learn-badge">Beginner</span>
+        <span class="learn-badge">Commands</span>
+        <span class="learn-badge">Cheat sheet</span>
+      </div>
+    </div>
+
+    <div class="learn-card">
+      <h3>📡 Networking Core</h3>
+      <p>IPv4/IPv6, subnetting idea, DNS/HTTP, ports, simple troubleshooting.</p>
+      <div class="learn-badges">
+        <span class="learn-badge">Beginner</span>
+        <span class="learn-badge">Concepts</span>
+        <span class="learn-badge">Tools</span>
+      </div>
+    </div>
+
+    <div class="learn-card">
+      <h3>🧠 Reverse Engineering</h3>
+      <p>What reversing is, static vs dynamic analysis, basic workflow and tools.</p>
+      <div class="learn-badges">
+        <span class="learn-badge">Intermediate</span>
+        <span class="learn-badge">Tools</span>
+        <span class="learn-badge">Workflow</span>
+      </div>
+    </div>
+
+    <div class="learn-card">
+      <h3>📱 Mobile Security</h3>
+      <p>Android basics, app components, common risks, testing tools overview.</p>
+      <div class="learn-badges">
+        <span class="learn-badge">Intermediate</span>
+        <span class="learn-badge">OWASP MASVS</span>
+        <span class="learn-badge">Demo</span>
+      </div>
+    </div>
+
+    <div class="learn-card">
+      <h3>🧰 DevSecOps</h3>
+      <p>Where security fits in CI/CD, secrets, SAST/DAST, container scanning.</p>
+      <div class="learn-badges">
+        <span class="learn-badge">Intermediate</span>
+        <span class="learn-badge">CI/CD</span>
+        <span class="learn-badge">Security checks</span>
+      </div>
+    </div>
+
+    <div class="learn-card">
+      <h3>🏁 CTF Starter Pack</h3>
+      <p>CTF categories, how to approach tasks, note-taking and quick tooling.</p>
+      <div class="learn-badges">
+        <span class="learn-badge">All levels</span>
+        <span class="learn-badge">Mindset</span>
+        <span class="learn-badge">Practice</span>
+      </div>
+    </div>
+  </section>
+
+  <div style="margin-top:14px;">
+    <a class="learn-btn" href="{{ path('app_dashboard') }}">← Back to dashboard</a>
+  </div>
+</div>
+{% endblock %}

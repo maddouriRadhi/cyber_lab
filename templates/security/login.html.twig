@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login - CyberLab{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="auth-wrap">
+  <div class="auth-card">
+
+    {% if error %}
+      <div class="auth-alert auth-alert--danger">
+        {{ error.messageKey|trans(error.messageData, 'security') }}
+      </div>
+    {% endif %}
+
+    <div class="auth-head">
+      <h1 class="auth-title">Welcome back</h1>
+      <p class="auth-sub">Access your dashboard and start learning.</p>
+    </div>
+
+    <form method="post" class="auth-form">
+      <label class="auth-label" for="inputEmail">Email</label>
+      <input class="auth-input" type="email" value="{{ last_username }}" name="email" id="inputEmail" autocomplete="email" required autofocus>
+
+      <label class="auth-label" for="inputPassword">Password</label>
+      <input class="auth-input" type="password" name="password" id="inputPassword" autocomplete="current-password" required>
+
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+      <button class="auth-btn auth-btn--primary" type="submit">
+        Sign in
+      </button>
+
+      <div class="auth-footer">
+        <span>New here?</span>
+        <a class="auth-link" href="{{ path('app_register') }}">Create an account</a>
+      </div>
+    </form>
+
+  </div>
+</div>
+{% endblock %}

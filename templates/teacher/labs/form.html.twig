@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ title }} — Teacher{% endblock %}
+
+{% block body %}
+<div class="card">
+  <a class="btn btn--ghost" href="{{ path('app_teacher_labs') }}">← Back</a>
+  <h1 style="margin-top:12px;">{{ title }}</h1>
+
+  {{ form_start(form, {'attr': {'class': 'form'}}) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.difficulty) }}
+    {{ form_row(form.points) }}
+    {{ form_row(form.flag) }}
+    {{ form_row(form.scheduledAt) }}
+    {{ form_row(form.meetingLink) }}
+    {{ form_row(form.maxSeats) }}
+    {{ form_row(form.published) }}
+
+    <button class="btn btn--primary" type="submit">Save</button>
+  {{ form_end(form) }}
+</div>
+{% endblock %}

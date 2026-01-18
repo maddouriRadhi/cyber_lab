@@ -1,0 +1,92 @@
+{% extends 'admin/_layout.html.twig' %}
+
+{% block title %}Admin • Teacher Applications{% endblock %}
+
+{% block admin_content %}
+  <div class="admin__top">
+    <div>
+      <h1 class="admin__title">Teacher Applications</h1>
+      <p class="admin__subtitle">Review and manage teacher requests (approve / reject / delete).</p>
+    </div>
+    <div class="pill">Connected as {{ app.user ? app.user.userIdentifier : '—' }}</div>
+  </div>
+
+  <div class="tfilters">
+    <a class="tfilter {{ status == 'ALL' ? 'is-active' : '' }}" href="{{ path('app_admin_teachers', {status: 'ALL'}) }}">
+      All <span>{{ counts.ALL }}</span>
+    </a>
+    <a class="tfilter {{ status == 'NEW' ? 'is-active' : '' }}" href="{{ path('app_admin_teachers', {status: 'NEW'}) }}">
+      New <span>{{ counts.NEW }}</span>
+    </a>
+    <a class="tfilter {{ status == 'APPROVED' ? 'is-active' : '' }}" href="{{ path('app_admin_teachers', {status: 'APPROVED'}) }}">
+      Approved <span>{{ counts.APPROVED }}</span>
+    </a>
+    <a class="tfilter {{ status == 'REJECTED' ? 'is-active' : '' }}" href="{{ path('app_admin_teachers', {status: 'REJECTED'}) }}">
+      Rejected <span>{{ counts.REJECTED }}</span>
+    </a>
+  </div>
+
+  <div class="tcard">
+    <div class="ttableWrap">
+      <table class="ttable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Full name</th>
+            <th>Email</th>
+            <th>Track</th>
+            <th>Level</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th class="tactions">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for a in apps %}
+          <tr>
+            <td>#{{ a.id }}</td>
+            <td class="tstrong">{{ a.fullName }}</td>
+            <td class="tmuted">{{ a.email }}</td>
+            <td>{{ a.primaryTrack }}</td>
+            <td>{{ a.experienceLevel }}</td>
+            <td>
+              <span class="tstatus tstatus--{{ a.status|lower }}">{{ a.status }}</span>
+            </td>
+            <td class="tmuted">{{ a.createdAt|date('Y-m-d H:i') }}</td>
+            <td class="tactions">
+              <a class="tbtn" href="{{ path('app_admin_teachers_show', {id: a.id}) }}">View</a>
+
+              {% if a.status != 'APPROVED' %}
+                <form method="post" action="{{ path('app_admin_teachers_approve', {id: a.id}) }}" class="tinline">
+                  {# ✅ MUST MATCH controller: approve_teacher_{id} #}
+                  <input type="hidden" name="_token" value="{{ csrf_token('approve_teacher_' ~ a.id) }}">
+                  <button class="tbtn tbtn--ok" type="submit">Approve</button>
+                </form>
+              {% endif %}
+
+              {% if a.status != 'REJECTED' %}
+                <form method="post" action="{{ path('app_admin_teachers_reject', {id: a.id}) }}" class="tinline">
+                  {# ✅ MUST MATCH controller: reject_teacher_{id} #}
+                  <input type="hidden" name="_token" value="{{ csrf_token('reject_teacher_' ~ a.id) }}">
+                  <button class="tbtn tbtn--warn" type="submit">Reject</button>
+                </form>
+              {% endif %}
+
+              <form method="post" action="{{ path('app_admin_teachers_delete', {id: a.id}) }}" class="tinline"
+                    onsubmit="return confirm('Delete this application?');">
+                {# ✅ MUST MATCH controller: delete_teacher_{id} #}
+                <input type="hidden" name="_token" value="{{ csrf_token('delete_teacher_' ~ a.id) }}">
+                <button class="tbtn tbtn--danger" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="8" class="tempty">No applications found.</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

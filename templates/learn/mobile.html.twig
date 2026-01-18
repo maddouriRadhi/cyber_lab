@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mobile Security — Learn{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/learn.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="learn">
+  <section class="learn-hero">
+    <div>
+      <div class="learn-kicker">Learn • Mobile Security</div>
+      <h1 class="learn-title">Mobile Security Basics 📱</h1>
+      <p class="learn-sub">
+        Mobile security focuses on protecting apps + data on phones (Android/iOS),
+        and testing common weaknesses.
+      </p>
+      <div class="learn-actions">
+        <a class="learn-btn learn-btn--primary" href="{{ path('app_learn_mobile') }}">Refresh</a>
+        <a class="learn-btn" href="{{ path('app_learn') }}">All modules</a>
+        <a class="learn-btn" href="{{ path('app_dashboard') }}">Dashboard</a>
+      </div>
+    </div>
+    <div class="learn-pill">Level: Intermediate</div>
+  </section>
+
+  <section class="learn-grid">
+    <div class="learn-card">
+      <h3>1) What is an Android app?</h3>
+      <ul class="learn-list">
+        <li>APK = app package</li>
+        <li>Components: Activities, Services, Broadcast Receivers</li>
+        <li>Permissions control access (camera, storage, contacts…)</li>
+      </ul>
+    </div>
+
+    <div class="learn-card">
+      <h3>2) Typical risks</h3>
+      <ul class="learn-list">
+        <li>Hardcoded secrets (API keys, tokens)</li>
+        <li>Insecure storage (plain text passwords)</li>
+        <li>Weak authentication / session handling</li>
+        <li>Insecure network traffic (no TLS pinning, bad SSL)</li>
+      </ul>
+    </div>
+
+    <div class="learn-card">
+      <h3>3) Tools (simple)</h3>
+      <ul class="learn-list">
+        <li>HTTP proxy: <b>Burp Suite</b></li>
+        <li>Static: <b>jadx</b> (read code), <b>apktool</b></li>
+        <li>Dynamic: <b>adb</b> (Android Debug Bridge)</li>
+      </ul>
+    </div>
+
+    <div class="learn-card">
+      <h3>4) Mini testing workflow</h3>
+      <ul class="learn-list">
+        <li>Install APK on emulator/phone</li>
+        <li>Intercept traffic with proxy</li>
+        <li>Check storage (files, preferences)</li>
+        <li>Look for secrets in code (jadx)</li>
+      </ul>
+    </div>
+
+    <div class="learn-card" style="grid-column: 1 / -1;">
+      <h3>Quick commands (ADB)</h3>
+      <div class="learn-code">
+adb devices
+adb shell pm list packages | head
+adb shell dumpsys package com.example.app | head
+adb logcat | head
+      </div>
+      <div class="learn-badges">
+        <span class="learn-badge">Use emulator for demos</span>
+        <span class="learn-badge">Proxy shows requests clearly</span>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

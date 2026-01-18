@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+{% block title %}My Labs — Teacher{% endblock %}
+
+{% block body %}
+<div class="card">
+  <h1>My Labs</h1>
+  <p class="muted">Create labs, set live time, publish/unpublish, and view enrolled students.</p>
+
+  {% for type, messages in app.flashes %}
+    {% for msg in messages %}
+      <div class="flash flash--{{ type }}">{{ msg }}</div>
+    {% endfor %}
+  {% endfor %}
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap; margin:14px 0;">
+    <a class="btn btn--primary" href="{{ path('app_teacher_labs_new') }}">+ Create Lab</a>
+    <a class="btn btn--ghost" href="{{ path('app_dashboard') }}">Back to Dashboard</a>
+  </div>
+
+  {% if labs is empty %}
+    <div class="muted">No labs yet.</div>
+  {% else %}
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      {% for lab in labs %}
+        <div style="border:1px solid rgba(255,255,255,.10); border-radius:12px; padding:12px;">
+          <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+            <div>
+              <div style="font-weight:800;">{{ lab.title }}</div>
+              <div class="muted" style="margin-top:4px;">
+                {{ lab.difficulty }} • ⭐ {{ lab.points }} pts
+                {% if lab.scheduledAt %} • Live: {{ lab.scheduledAt|date('Y-m-d H:i') }}{% else %} • Self-paced{% endif %}
+                {% if lab.maxSeats %} • Seats: {{ lab.enrollments|length }}/{{ lab.maxSeats }}{% else %} • Enrolled: {{ lab.enrollments|length }}{% endif %}
+              </div>
+            </div>
+
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+              {% if lab.published %}
+                <span class="badge badge--success">Published</span>
+              {% else %}
+                <span class="badge badge--soft">Draft</span>
+              {% endif %}
+
+              <a class="btn btn--ghost" href="{{ path('app_teacher_labs_students', {id: lab.id}) }}">Students</a>
+              <a class="btn btn--ghost" href="{{ path('app_teacher_labs_edit', {id: lab.id}) }}">Edit</a>
+
+              <form method="post" action="{{ path('app_teacher_labs_toggle', {id: lab.id}) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('toggle_lab_' ~ lab.id) }}">
+                <button class="btn btn--ghost" type="submit">
+                  {% if lab.published %}Unpublish{% else %}Publish{% endif %}
+                </button>
+              </form>
+
+              <form method="post" action="{{ path('app_teacher_labs_delete', {id: lab.id}) }}"
+                    onsubmit="return confirm('Delete this lab?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete_lab_' ~ lab.id) }}">
+                <button class="btn btn--danger" type="submit">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

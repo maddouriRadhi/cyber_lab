@@ -1,0 +1,110 @@
+{% extends 'admin/_layout.html.twig' %}
+
+{% block title %}Users - Admin{% endblock %}
+
+{% block admin_content %}
+  <div class="admin__top">
+    <div>
+      <h1 class="admin__title">Users</h1>
+      <p class="admin__subtitle">Enable/disable accounts and change roles.</p>
+    </div>
+  </div>
+
+  <div class="tablex">
+    <div class="tablex__row tablex__head">
+      <div>ID</div>
+      <div>Name</div>
+      <div>Email</div>
+      <div>Roles</div>
+      <div>Status</div>
+      <div style="text-align:right">Actions</div>
+    </div>
+
+    {% for u in users %}
+      <div class="tablex__row">
+        <div>#{{ u.id }}</div>
+        <div>{{ u.fullName ?: '—' }}</div>
+        <div>{{ u.email }}</div>
+        <div><span class="badge">{{ u.roles|join(', ') }}</span></div>
+
+        <div>
+          {% if u.isActive %}
+            <span class="badge" style="border-color: rgba(24,243,177,.30); background: rgba(24,243,177,.10);">Active</span>
+          {% else %}
+            <span class="badge" style="border-color: rgba(255,77,109,.30); background: rgba(255,77,109,.10);">Disabled</span>
+          {% endif %}
+        </div>
+
+        <div style="text-align:right; display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap; align-items:center;">
+          <form method="post" action="{{ path('app_admin_users_toggle', {id: u.id}) }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('toggle_user_' ~ u.id) }}">
+            <button class="btn btn--ghost" type="submit">
+              {{ u.isActive ? 'Disable' : 'Enable' }}
+            </button>
+          </form>
+
+          <form method="post" action="{{ path('app_admin_users_role', {id: u.id}) }}" class="roleForm">
+            <input type="hidden" name="_token" value="{{ csrf_token('role_user_' ~ u.id) }}">
+
+            {# ---- Custom dark dropdown (replaces <select>) ---- #}
+            <div class="roleSelect" data-role-select>
+              {# value that will be submitted #}
+              <input type="hidden" name="role" value="student" data-role-value>
+
+              <button class="roleSelect__btn" type="button" data-role-btn>
+                <span data-role-label>Student</span>
+                <span class="roleSelect__chev">▾</span>
+              </button>
+
+              <div class="roleSelect__menu" data-role-menu>
+                <button type="button" class="roleSelect__item" data-role="student">Student</button>
+                <button type="button" class="roleSelect__item" data-role="teacher">Teacher</button>
+                <button type="button" class="roleSelect__item" data-role="admin">Admin</button>
+              </div>
+            </div>
+
+            <button class="btn btn--primary" type="submit">Set</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <script>
+  (() => {
+    const selects = document.querySelectorAll('[data-role-select]');
+
+    function closeAll(except){
+      selects.forEach(s => {
+        if (s !== except) s.classList.remove('is-open');
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      const wrapper = e.target.closest('[data-role-select]');
+      if (!wrapper) closeAll(null);
+    });
+
+    selects.forEach(wrapper => {
+      const btn = wrapper.querySelector('[data-role-btn]');
+      const menu = wrapper.querySelector('[data-role-menu]');
+      const hidden = wrapper.querySelector('[data-role-value]');
+      const label = wrapper.querySelector('[data-role-label]');
+
+      btn.addEventListener('click', () => {
+        const open = wrapper.classList.toggle('is-open');
+        if (open) closeAll(wrapper);
+      });
+
+      menu.querySelectorAll('[data-role]').forEach(item => {
+        item.addEventListener('click', () => {
+          const v = item.getAttribute('data-role');
+          hidden.value = v;
+          label.textContent = item.textContent.trim();
+          wrapper.classList.remove('is-open');
+        });
+      });
+    });
+  })();
+  </script>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ lab.title }} | CyberLab{% endblock %}
+
+{% block body %}
+<div class="card">
+  <a class="btn btn--ghost" href="{{ path('app_labs') }}">← Back</a>
+
+  <h1 style="margin-top:12px">{{ lab.title }}</h1>
+
+  {% set teacherName = lab.teacher ? (lab.teacher.fullName ?: lab.teacher.email) : '—' %}
+
+  <div class="meta" style="flex-wrap:wrap; gap:8px;">
+    <span class="badge">{{ lab.difficulty }}</span>
+    <span class="badge badge--soft">{{ lab.points }} pts</span>
+
+    {% if alreadySolved %}
+      <span class="badge badge--success">Solved ✅</span>
+    {% endif %}
+
+    <span class="badge badge--soft">By {{ teacherName }}</span>
+
+    {% if lab.scheduledAt %}
+      <span class="badge badge--soft">Live: {{ lab.scheduledAt|date('Y-m-d H:i') }}</span>
+    {% else %}
+      <span class="badge badge--soft">Self-paced</span>
+    {% endif %}
+
+    {% if lab.maxSeats %}
+      <span class="badge badge--soft">Seats: {{ enrollCount|default(0) }}/{{ lab.maxSeats }}</span>
+    {% else %}
+      <span class="badge badge--soft">Enrolled: {{ enrollCount|default(0) }}</span>
+    {% endif %}
+  </div>
+
+  <p style="margin-top:16px">{{ lab.description }}</p>
+
+  {% if lab.meetingLink %}
+    <div style="margin-top:10px;">
+      <a class="btn btn--ghost" href="{{ lab.meetingLink }}" target="_blank" rel="noopener">Open meeting link</a>
+    </div>
+  {% endif %}
+
+  <hr style="margin: 18px 0; opacity:.2">
+
+  {% for type, messages in app.flashes %}
+    {% for msg in messages %}
+      <div class="flash flash--{{ type }}">{{ msg }}</div>
+    {% endfor %}
+  {% endfor %}
+
+  {# Student enroll buttons #}
+  {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') and not is_granted('ROLE_TEACHER') %}
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 14px;">
+      {% if isEnrolled|default(false) %}
+        <form method="post" action="{{ path('app_lab_unenroll', {id: lab.id}) }}">
+          <input type="hidden" name="_token" value="{{ csrf_token('unenroll_lab_' ~ lab.id) }}">
+          <button class="btn btn--ghost" type="submit">Unenroll</button>
+        </form>
+      {% else %}
+        <form method="post" action="{{ path('app_lab_enroll', {id: lab.id}) }}">
+          <input type="hidden" name="_token" value="{{ csrf_token('enroll_lab_' ~ lab.id) }}">
+          <button class="btn btn--primary" type="submit">Enroll</button>
+        </form>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {# Flag submit #}
+  {% if not alreadySolved %}
+    <form method="post" class="form">
+      <label>Submit flag</label>
+      <input type="text" name="flag" placeholder="CYBERLAB{...}" required>
+      <button class="btn btn--primary" type="submit">Submit</button>
+    </form>
+  {% else %}
+    <p class="muted">You already solved this lab.</p>
+  {% endif %}
+</div>
+{% endblock %}

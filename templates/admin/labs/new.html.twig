@@ -1,0 +1,14 @@
+{% extends 'admin/layout.html.twig' %}
+{% block title %}New Lab - Admin{% endblock %}
+
+{% block admin_main %}
+  <div class="admin__top">
+    <div>
+      <h1 class="admin__title">New Lab</h1>
+      <p class="admin__subtitle">Create a new lab.</p>
+    </div>
+    <a class="btn btn--ghost" href="{{ path('app_admin_labs') }}">← Back</a>
+  </div>
+
+  {% include 'admin/labs/_form.html.twig' with { form: form, button: 'Create' } %}
+{% endblock %}

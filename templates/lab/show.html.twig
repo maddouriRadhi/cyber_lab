@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ lab.title }} | CyberLab{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <a class="back" href="{{ path('app_labs') }}">← Back to labs</a>
+
+    <div class="lab-card">
+      <div class="lab-card__top">
+        <h1>{{ lab.title }}</h1>
+        <div class="meta">
+          <span class="badge badge--{{ lab.difficulty|lower }}">{{ lab.difficulty }}</span>
+          <span class="points">{{ lab.points }} pts</span>
+        </div>
+      </div>
+
+      <div class="lab-desc">
+        {{ lab.description|nl2br }}
+      </div>
+
+      {% for label, messages in app.flashes %}
+        {% for msg in messages %}
+          <div class="flash flash--{{ label }}">{{ msg }}</div>
+        {% endfor %}
+      {% endfor %}
+
+      {% if alreadySolved %}
+        <div class="solved">
+          ✅ You already solved this lab.
+        </div>
+      {% else %}
+        <form method="post" class="flag-form">
+          <label class="label">Submit Flag</label>
+          <input class="input" type="text" name="flag" placeholder="CYBERLAB{...}" required>
+          <button class="btn btn--primary" type="submit">Submit</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

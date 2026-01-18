@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DevSecOps — Learn{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/learn.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="learn">
+  <section class="learn-hero">
+    <div>
+      <div class="learn-kicker">Learn • DevSecOps</div>
+      <h1 class="learn-title">DevSecOps Basics 🧰</h1>
+      <p class="learn-sub">
+        DevSecOps = adding security checks inside the development + CI/CD pipeline,
+        not “after” the release.
+      </p>
+      <div class="learn-actions">
+        <a class="learn-btn learn-btn--primary" href="{{ path('app_learn_devsecops') }}">Refresh</a>
+        <a class="learn-btn" href="{{ path('app_learn') }}">All modules</a>
+        <a class="learn-btn" href="{{ path('app_dashboard') }}">Dashboard</a>
+      </div>
+    </div>
+    <div class="learn-pill">Level: Intermediate</div>
+  </section>
+
+  <section class="learn-grid">
+    <div class="learn-card">
+      <h3>1) Where security fits</h3>
+      <ul class="learn-list">
+        <li>Code stage: linters + secret scan</li>
+        <li>Build stage: dependency scanning</li>
+        <li>Test stage: SAST + unit tests</li>
+        <li>Deploy stage: IaC checks + approvals</li>
+      </ul>
+    </div>
+
+    <div class="learn-card">
+      <h3>2) Keywords you can say</h3>
+      <ul class="learn-list">
+        <li><b>SAST</b>: scan source code</li>
+        <li><b>DAST</b>: scan running app</li>
+        <li><b>SCA</b>: scan dependencies (libraries)</li>
+        <li><b>Secrets</b>: tokens/keys in code</li>
+      </ul>
+    </div>
+
+    <div class="learn-card">
+      <h3>3) Common mistakes</h3>
+      <ul class="learn-list">
+        <li>Secrets committed to Git</li>
+        <li>Outdated packages with known CVEs</li>
+        <li>No HTTPS / weak headers</li>
+        <li>Over-permissive cloud/IAM</li>
+      </ul>
+    </div>
+
+    <div class="learn-card">
+      <h3>4) Simple demo pipeline idea</h3>
+      <ul class="learn-list">
+        <li>Commit → run tests</li>
+        <li>Scan dependencies</li>
+        <li>Build artifact</li>
+        <li>Deploy to staging</li>
+      </ul>
+    </div>
+
+    <div class="learn-card" style="grid-column: 1 / -1;">
+      <h3>Example “checks” (visual)</h3>
+      <div class="learn-code">
+1) Unit tests: PASS ✅
+2) Secret scan: OK ✅
+3) Dependency scan: 2 issues ⚠️
+4) SAST scan: OK ✅
+5) Deploy to staging: DONE ✅
+      </div>
+      <div class="learn-badges">
+        <span class="learn-badge">Goal: catch issues early</span>
+        <span class="learn-badge">Automate + keep it simple</span>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

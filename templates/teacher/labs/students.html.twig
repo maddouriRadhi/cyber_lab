@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block title %}Students — {{ lab.title }}{% endblock %}
+
+{% block body %}
+<div class="card">
+  <a class="btn btn--ghost" href="{{ path('app_teacher_labs') }}">← Back</a>
+
+  <h1 style="margin-top:12px;">Enrolled Students</h1>
+  <p class="muted">
+    Lab: <strong>{{ lab.title }}</strong>
+    {% if lab.scheduledAt %} • Live: {{ lab.scheduledAt|date('Y-m-d H:i') }}{% endif %}
+  </p>
+
+  {% if enrollments is empty %}
+    <div class="muted">No students enrolled yet.</div>
+  {% else %}
+    <div style="display:flex; flex-direction:column; gap:10px; margin-top:12px;">
+      {% for e in enrollments %}
+        <div style="border:1px solid rgba(255,255,255,.10); border-radius:12px; padding:12px;">
+          <div style="font-weight:800;">
+            {{ e.student.fullName ?: e.student.email }}
+          </div>
+          <div class="muted" style="margin-top:4px;">
+            {{ e.student.email }} • Enrolled: {{ e.createdAt|date('Y-m-d H:i') }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'admin/_layout.html.twig' %}
+
+{% block admin_content %}
+  <div class="admin__top">
+    <div>
+      <h1 class="admin__title">{{ title }}</h1>
+      <p class="admin__subtitle">Fill the fields below.</p>
+    </div>
+    <a class="btn" href="{{ path('app_admin_labs') }}">← Back</a>
+  </div>
+
+  <div class="card" style="max-width: 900px;">
+    <div class="card__body">
+      {{ form_start(form, {attr: {class: 'form'}}) }}
+
+      {{ form_row(form.title) }}
+      {{ form_row(form.description) }}
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        {{ form_row(form.difficulty) }}
+        {{ form_row(form.points) }}
+      </div>
+
+      {{ form_row(form.flag) }}
+      {{ form_row(form.published) }}
+
+      <button class="btn btn--primary" type="submit" style="width:100%;">Save</button>
+
+      {{ form_end(form) }}
+    </div>
+  </div>
+{% endblock %}

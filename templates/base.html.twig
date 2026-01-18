@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}CyberLab{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{{ asset('css/cyberlab.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+<header class="topbar">
+    <div class="topbar__inner">
+        <a class="brand" href="{{ path('app_home') }}">
+            <span class="brand__dot"></span>
+            CyberLab
+        </a>
+
+        <nav class="nav">
+            {# =========================
+               ADMIN NAV (only admin)
+               ========================= #}
+            {% if app.user and is_granted('ROLE_ADMIN') %}
+                <a class="nav__link" href="{{ path('app_admin_dashboard') }}">Admin</a>
+                <a class="nav__link" href="{{ path('app_admin_users') }}">Users</a>
+                <a class="nav__link" href="{{ path('app_admin_labs') }}">Labs</a>
+                <a class="nav__link" href="{{ path('app_admin_teachers') }}">Teachers</a>
+
+            {# =========================
+               TEACHER NAV
+               ========================= #}
+            {% elseif app.user and is_granted('ROLE_TEACHER') %}
+                <a class="nav__link" href="{{ path('app_learn') }}">Learn</a>
+                <a class="nav__link" href="{{ path('app_teacher_labs') }}">My Labs</a>
+                {# Pricing + Business removed for teacher #}
+
+            {# =========================
+               LOGGED IN STUDENT NAV
+               (ROLE_USER but NOT admin/teacher)
+               ========================= #}
+            {% elseif app.user %}
+                <a class="nav__link" href="{{ path('app_learn') }}">Learn</a>
+                <a class="nav__link" href="{{ path('app_labs') }}">Practice</a>
+                <a class="btn btn--ghost" href="{{ path('app_pricing') }}">Pricing</a>
+                <a class="nav__link" href="{{ path('app_business') }}">Business</a>
+                {# Pricing + Business removed when logged in #}
+
+            {# =========================
+               PUBLIC NAV (not logged)
+               ========================= #}
+            {% else %}
+                <a class="nav__link" href="{{ path('app_learn') }}">Learn</a>
+                <a class="nav__link" href="{{ path('app_labs') }}">Practice</a>
+                <a class="btn btn--ghost" href="{{ path('app_pricing') }}">Pricing</a>
+                <a class="nav__link" href="{{ path('app_business') }}">Business</a>
+            {% endif %}
+        </nav>
+
+        <div class="topbar__actions">
+            {% if app.user %}
+                <span class="pill">{{ app.user.userIdentifier }}</span>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn--ghost" href="{{ path('app_admin_dashboard') }}">Admin Panel</a>
+
+                {% elseif is_granted('ROLE_TEACHER') %}
+                    <a class="btn btn--ghost" href="{{ path('app_dashboard') }}">Dashboard</a>
+                    <a class="btn btn--ghost" href="{{ path('app_teacher_labs') }}">Create Lab</a>
+
+                {% else %}
+                    {# normal student #}
+                    <a class="btn btn--ghost" href="{{ path('app_dashboard') }}">Dashboard</a>
+                    <a class="btn btn--ghost" href="{{ path('app_cart') }}">Cart</a>
+                {% endif %}
+
+                <a class="btn btn--danger" href="{{ path('app_logout') }}">Logout</a>
+            {% else %}
+                <a class="btn btn--ghost" href="{{ path('app_login') }}">Login</a>
+                <a class="btn btn--primary" href="{{ path('app_register') }}">Register</a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<main class="page">
+    {% block body %}{% endblock %}
+</main>
+</body>
+</html>

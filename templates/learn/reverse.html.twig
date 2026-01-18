@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reverse Engineering — Learn{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/learn.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="learn">
+  <section class="learn-hero">
+    <div>
+      <div class="learn-kicker">Learn • Reverse Engineering</div>
+      <h1 class="learn-title">Reverse Engineering Basics 🧠</h1>
+      <p class="learn-sub">
+        Reverse engineering = understanding how a program works by analyzing it
+        (even without source code).
+      </p>
+      <div class="learn-actions">
+        <a class="learn-btn learn-btn--primary" href="{{ path('app_learn_reverse') }}">Refresh</a>
+        <a class="learn-btn" href="{{ path('app_learn') }}">All modules</a>
+        <a class="learn-btn" href="{{ path('app_dashboard') }}">Dashboard</a>
+      </div>
+    </div>
+    <div class="learn-pill">Level: Intermediate</div>
+  </section>
+
+  <section class="learn-grid">
+    <div class="learn-card">
+      <h3>1) What you try to find</h3>
+      <ul class="learn-list">
+        <li>Inputs / outputs of the program</li>
+        <li>Logic: checks, algorithms, key conditions</li>
+        <li>Files, network calls, encryption, API usage</li>
+        <li>Security: vulnerabilities or protections</li>
+      </ul>
+    </div>
+
+    <div class="learn-card">
+      <h3>2) Two big approaches</h3>
+      <ul class="learn-list">
+        <li><b>Static analysis</b>: read the binary without running it</li>
+        <li><b>Dynamic analysis</b>: run it and observe behavior</li>
+        <li>Usually you combine both</li>
+      </ul>
+    </div>
+
+    <div class="learn-card">
+      <h3>3) Tools (names only)</h3>
+      <ul class="learn-list">
+        <li>Strings / file info: <b>strings</b>, <b>file</b></li>
+        <li>Disassembly: <b>Ghidra</b>, <b>IDA</b></li>
+        <li>Debugging: <b>x64dbg</b>, <b>gdb</b></li>
+        <li>System tracing: <b>strace</b>, <b>ltrace</b></li>
+      </ul>
+    </div>
+
+    <div class="learn-card">
+      <h3>4) Mini workflow</h3>
+      <ul class="learn-list">
+        <li>Identify file type (exe/elf) and architecture</li>
+        <li>Extract strings, look for URLs, keys, error messages</li>
+        <li>Open in disassembler, find main / interesting functions</li>
+        <li>Debug to see what happens at runtime</li>
+      </ul>
+    </div>
+
+    <div class="learn-card" style="grid-column: 1 / -1;">
+      <h3>Quick commands (Linux)</h3>
+      <div class="learn-code">
+file sample.bin
+strings -n 6 sample.bin | head
+sha256sum sample.bin
+ldd sample.bin   # libraries (Linux ELF)
+      </div>
+      <div class="learn-badges">
+        <span class="learn-badge">Tip: always work on a copy</span>
+        <span class="learn-badge">Use a VM/sandbox for unknown files</span>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

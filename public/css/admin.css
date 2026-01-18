@@ -1,0 +1,308 @@
+.admin{
+  display:grid;
+  grid-template-columns: 280px 1fr;
+  min-height: calc(100vh - 72px);
+  gap: 18px;
+  padding: 18px;
+}
+
+.admin__sidebar{
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(18,24,34,.55);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 18px;
+  position: sticky;
+  top: 84px;
+  height: calc(100vh - 110px);
+}
+
+.admin__brand{
+  display:flex;
+  gap: 12px;
+  align-items:center;
+  padding: 10px 10px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  margin-bottom: 14px;
+}
+.admin__brand .dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #18f3b1;
+  box-shadow: 0 0 18px rgba(24,243,177,.7);
+}
+.admin__brand .name{
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+.admin__brand .sub{
+  opacity: .75;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.admin__nav{
+  display:flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 6px;
+}
+.admin__link{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 12px;
+  text-decoration:none;
+  color: rgba(255,255,255,.88);
+  border: 1px solid rgba(255,255,255,.06);
+  background: rgba(255,255,255,.02);
+}
+.admin__link:hover{
+  background: rgba(24,243,177,.08);
+  border-color: rgba(24,243,177,.25);
+}
+.admin__link.is-active{
+  background: rgba(24,243,177,.12);
+  border-color: rgba(24,243,177,.35);
+}
+.admin__link.danger:hover{
+  background: rgba(255,77,109,.10);
+  border-color: rgba(255,77,109,.25);
+}
+.admin__sep{
+  height: 1px;
+  background: rgba(255,255,255,.07);
+  margin: 10px 2px;
+}
+
+.admin__main{
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(18,24,34,.35);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 22px;
+}
+
+.admin__top{
+  display:flex;
+  justify-content: space-between;
+  align-items:flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.admin__title{ font-size: 28px; margin: 0; }
+.admin__subtitle{ margin: 8px 0 0; opacity: .8; }
+
+.pill{
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  padding: 10px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.admin__grid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.cardx{
+  display:flex;
+  gap: 14px;
+  align-items:center;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.20);
+  text-decoration:none;
+  color: rgba(255,255,255,.90);
+}
+.cardx:hover{
+  border-color: rgba(24,243,177,.35);
+  background: rgba(24,243,177,.06);
+}
+.cardx__icon{
+  width: 44px;
+  height: 44px;
+  display:grid;
+  place-items:center;
+  border-radius: 14px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  font-size: 20px;
+}
+.cardx__title{ font-weight: 800; }
+.cardx__text{ opacity: .78; margin-top: 4px; line-height: 1.35; font-size: 13px; }
+.cardx__arrow{ margin-left:auto; opacity:.7; font-size: 18px; }
+
+.cardx--info{
+  grid-column: 1 / -1;
+  cursor: default;
+}
+.cardx--info:hover{
+  border-color: rgba(255,255,255,.08);
+  background: rgba(0,0,0,.20);
+}
+
+@media (max-width: 980px){
+  .admin{ grid-template-columns: 1fr; }
+  .admin__sidebar{ position: relative; top: 0; height: auto; }
+  .admin__grid{ grid-template-columns: 1fr; }
+}
+.tablex{ display:flex; flex-direction:column; gap:10px; }
+.tablex__row{
+  display:grid;
+  grid-template-columns: 80px 1.2fr 1.5fr 1fr 1fr 1.6fr;
+  gap: 12px;
+  align-items:center;
+  padding: 12px 14px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.18);
+  border-radius: 14px;
+}
+.tablex__head{
+  background: rgba(255,255,255,.03);
+  font-weight: 800;
+  opacity: .95;
+}
+.selectx{
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.90);
+}
+.grid2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.btn--danger{
+  border: 1px solid rgba(255,77,109,.35);
+  background: rgba(255,77,109,.10);
+  color: #ffd1d8;
+}
+.btn--danger:hover{
+  background: rgba(255,77,109,.18);
+  border-color: rgba(255,77,109,.55);
+}
+@media (max-width: 980px){
+  .tablex__row{ grid-template-columns: 1fr; }
+  .grid2{ grid-template-columns: 1fr; }
+}
+/* ===== Select (dropdown) dark style ===== */
+.selectx{
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  height: 40px;
+  padding: 8px 44px 8px 12px;
+  border-radius: 12px;
+
+  color: rgba(255,255,255,.92);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.10);
+
+  outline: none;
+  cursor: pointer;
+
+  /* arrow */
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgba(255,255,255,.75) 50%),
+    linear-gradient(135deg, rgba(255,255,255,.75) 50%, transparent 50%),
+    linear-gradient(to right, rgba(255,255,255,.06), rgba(255,255,255,.06));
+  background-position:
+    calc(100% - 18px) 16px,
+    calc(100% - 12px) 16px,
+    calc(100% - 42px) 0;
+  background-size:
+    6px 6px,
+    6px 6px,
+    1px 100%;
+  background-repeat: no-repeat;
+
+  transition: border-color .15s ease, background .15s ease;
+}
+
+.selectx:hover{
+  background: rgba(24,243,177,.06);
+  border-color: rgba(24,243,177,.25);
+}
+
+.selectx:focus{
+  border-color: rgba(24,243,177,.35);
+  box-shadow: 0 0 0 3px rgba(24,243,177,.10);
+}
+
+/* Options list (works on many browsers; some ignore it) */
+.selectx option{
+  background: #0c141a;
+  color: rgba(255,255,255,.92);
+}
+/* ===== Custom Role Select (fixes white OS dropdown) ===== */
+.roleSelect{
+  position: relative;
+  display: inline-block;
+  min-width: 140px;
+}
+
+.roleSelect__btn{
+  height: 40px;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.92);
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.roleSelect__btn:hover{
+  background: rgba(24,243,177,.06);
+  border-color: rgba(24,243,177,.25);
+}
+
+.roleSelect__menu{
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  padding: 8px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(12, 20, 26, .92);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  display: none;
+  z-index: 9999;
+}
+
+.roleSelect.is-open .roleSelect__menu{ display: block; }
+
+.roleSelect__item{
+  width: 100%;
+  text-align: left;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: rgba(255,255,255,.92);
+  cursor: pointer;
+}
+
+.roleSelect__item:hover{
+  background: rgba(24,243,177,.10);
+  border-color: rgba(24,243,177,.25);
+}
+
+.roleSelect__chev{ opacity: .75; }

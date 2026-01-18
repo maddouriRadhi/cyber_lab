@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Labs | CyberLab{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <h1 class="page-title">Labs</h1>
+
+    <div class="grid">
+      {% for lab in labs %}
+        <a class="card" href="{{ path('app_lab_show', {id: lab.id}) }}">
+          <div class="card__head">
+            <h3>{{ lab.title }}</h3>
+            <span class="badge badge--{{ lab.difficulty|lower }}">{{ lab.difficulty }}</span>
+          </div>
+          <p class="muted">{{ lab.description|slice(0, 120) ~ '...' }}</p>
+          <div class="card__foot">
+            <span class="points">{{ lab.points }} pts</span>
+            <span class="go">Open →</span>
+          </div>
+        </a>
+      {% else %}
+        <p>No labs yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
